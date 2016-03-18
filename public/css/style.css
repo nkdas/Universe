@@ -1,0 +1,103 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto);
+
+body {
+    font-family: 'Roboto', sans-serif !important;
+}
+
+input {
+    border-radius: 0px !important;
+    border: 0px !important;
+    background-color: #000 !important;
+    border-bottom: 1px solid #00F !important;
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    box-shadow: none !important;
+}
+
+input:focus {
+    border-bottom: 2px solid #286090 !important;
+}
+
+#signInButton {
+    background-color: #00F !important;
+}
+
+#wrapper {
+    padding-left: 50px;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+#wrapper.toggled {
+    padding-left: 350px;
+}
+
+#sidebar-wrapper {
+    z-index: 1000;
+    position: fixed;
+    top:0px;
+    left: 250px;
+    width: 50px;
+    height: 100%;
+    margin-left: -250px;
+    background: #000;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+    overflow: hidden;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+    width: 350px;
+}
+
+#wrapper.toggled #page-content-wrapper {
+    position: absolute;
+    margin-right: -250px;
+}
+
+/* Sidebar Styles */
+.sidebar-nav {
+    position: absolute;
+    top: 0;
+    width: 350px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+#sidebar-fixed {
+    position: fixed;
+    top: 0;
+    width: 50px;
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+    background: #000;
+    height: 100%;
+}
+
+#sidebar-icons {
+    list-style-type: none;
+    width: 50px;
+    font-size: 30px;
+    padding: 10px;
+    float:left;
+}
+
+#sidebar-icons a:link, #sidebar-icons a:visited {
+    color: #0000FF;
+}
+
+#sidebar-icons a:hover, #sidebar-icons a:active {
+    color: aqua;
+}
+
+.tab-content {
+    display: inline-block !important;
+    width: 300px;
+    padding: 10px;
+}
