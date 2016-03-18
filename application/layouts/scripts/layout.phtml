@@ -1,0 +1,24 @@
+<?php
+$this->headMeta()->appendHttpEquiv('Content-Type', 'text/html;charset=utf-8');
+$this->headTitle()->setSeparator(' | ');
+$this->headTitle('My World');
+echo $this->doctype('HTML5') . "\n"; ?>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <?php echo $this->headMeta() . "\n"; ?>
+    <?php echo $this->headTitle() . "\n"; ?>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+    <?php echo $this->headLink()->prependStylesheet($this->baseUrl().'/css/style.css') . "\n"; ?>
+</head>
+<body>
+<div id="content" class="container-fluid">
+    <h1><?php echo $this->escape($this->title); ?></h1>
+    <?php echo $this->layout()->content . "\n"; ?>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<?php echo $this->headScript()->prependFile($this->baseUrl().'/js/universe.js') ?>
+</body>
+</html>
