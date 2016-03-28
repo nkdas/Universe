@@ -29,6 +29,7 @@ class Application_Model_Twitter_Twitter
      */
     public function getOAuthToken()
     {
+
         // Create a connection and ask for request token
         $connection = new TwitterOAuth(
             $this->_consumerKey,
@@ -53,10 +54,11 @@ class Application_Model_Twitter_Twitter
 
         // Set session for the controller to know that it has been through getting OAuthToken from Twitter
         // and doesn't need to call this function again.
-        $_SESSION['twitterWidgetProgress'] = '1';
+        $_SESSION['isOAuthTokenPresent'] = '1';
 
         // Redirect to the url
         header('Location: ' . $url);
+        exit;
     }
 
     /**
@@ -115,18 +117,19 @@ class Application_Model_Twitter_Twitter
             // Set session for the controller to know that it has been through getting the
             // access token and required user data from Twitter and doesn't need to call this
             // function again.
-            $_SESSION['twitterWidgetProgress'] = '2';
+            $_SESSION['isOAuthTokenPresent'] = '0';
 
             foreach($string as $items)
             {
-                $twitterData .= 'Time and Date of Tweet: ' . $items['created_at'] . '<br />'
-                    . 'Tweet: ' . $items['text']
-                    . $items['entities']['urls']['0']['url'] . '<br />'
-                    . 'Tweeted by: ' . $items['user']['name'] . '<br />'
-                    . 'Screen name: ' . $items['user']['screen_name'] . '<br />'
-                    . 'Followers: ' . $items['user']['followers_count'] . '<br />'
-                    . 'Friends: ' . $items['user']['friends_count'] . '<br />'
-                    . 'Listed: ' . $items['user']['listed_count'] . '<br /><hr>';
+                $twitterData .= '<h3>' . $items['user']['name'] . '</h3>'
+                    . '<p>' . $items['created_at'] . '</p>'
+                    . '<p class="tweet">' . $items['text'] . '</p>'
+                    . '<p><a href="' . $items['entities']['urls']['0']['url'] . '">'
+                    . $items['entities']['urls']['0']['url'] . '</a></p>'
+                    . '<p>Screen name: ' . $items['user']['screen_name'] . '<br>'
+                    . 'Followers: ' . $items['user']['followers_count'] . '<br>'
+                    . 'Friends: ' . $items['user']['friends_count'] . '<br>'
+                    . 'Listed: ' . $items['user']['listed_count'] . '</p><hr>';
             }
         }
         return $twitterData;
