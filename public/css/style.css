@@ -1,25 +1,56 @@
-@import url(https://fonts.googleapis.com/css?family=Roboto);
-
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,300,100);
 body {
     font-family: 'Roboto', sans-serif !important;
+    font-weight: 300 !important;
+    background-image: url("../images/bg3.jpg");
+    background-attachment: fixed;
+    background-size: 100% 100%;
+}
+
+h1 {
+    font-family: 'Roboto', sans-serif !important;
+    font-weight: 300 !important;
+    color: #FFF;
+}
+
+.forms {
+    background-color: #FFF;
+    padding: 10px;
+
+    box-shadow: 0 4px 8px 0 #000, 0 6px 20px 0 #000 !important;
+    -moz-box-shadow: 0 4px 8px 0 #000, 0 6px 20px 0 #000 !important;
+    -webkit-box-shadow: 0 4px 8px 0 #000, 0 6px 20px 0 #000 !important;
+    -o-box-shadow: 0 4px 8px 0 #000, 0 6px 20px 0 #000 !important;
+}
+
+.forms h4 {
+    color: #aaa !important;
 }
 
 input {
     border-radius: 0px !important;
     border: 0px !important;
-    background-color: #000 !important;
-    border-bottom: 1px solid #00F !important;
+    background-color: rgba(0,0,0,0) !important;
+    border-bottom: 1px solid #eee !important;
     -webkit-box-shadow: none !important;
     -moz-box-shadow: none !important;
     box-shadow: none !important;
+    color: #888 !important;
 }
 
 input:focus {
-    border-bottom: 2px solid #286090 !important;
+    border-bottom: 1px solid #00BBFF !important;
+
+    -webkit-transition: all 0.15s ease-in-out;
+    -moz-transition: all 0.15s ease-in-out;
+    -o-transition: all 0.15s ease-in-out;
+    transition: all 0.15s ease-in-out;
 }
 
-#signInButton {
-    background-color: #00F !important;
+#signInButton, #signUpButton {
+    background-color: #00BBFF !important;
+    border: 0px !important;
+    color: #fff !important;
 }
 
 #wrapper {
@@ -35,6 +66,7 @@ input:focus {
 }
 
 #sidebar-wrapper {
+    color: #FFF !important;
     z-index: 1000;
     position: fixed;
     top:0px;
@@ -42,7 +74,7 @@ input:focus {
     width: 50px;
     height: 100%;
     margin-left: -250px;
-    background: #000;
+    background: rgba(0,0,0,0.8);
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
@@ -89,7 +121,7 @@ input:focus {
 }
 
 #sidebar-icons a:link, #sidebar-icons a:visited {
-    color: #0000FF;
+    color: #FFF;
 }
 
 #sidebar-icons a:hover, #sidebar-icons a:active {
@@ -101,3 +133,51 @@ input:focus {
     width: 300px;
     padding: 10px;
 }
+
+.widgets {
+    height: 500px !important;
+    background: #fff;
+    border: 2px solid #333;
+}
+
+#searchBox {
+    border: 0px solid #fff !important;
+    background-color: #FFF !important;
+    display: inline !important;
+    margin-right: 2px !important;
+
+    box-shadow: 0 2px 4px 0 #000, 0 3px 10px 0 #000 !important;
+    -moz-box-shadow: 0 2px 4px 0 #000, 0 3px 10px 0 #000 !important;
+    -webkit-box-shadow: 0 2px 4px 0 #000, 0 3px 10px 0 #000 !important;
+    -o-box-shadow: 0 2px 4px 0 #000, 0 3px 10px 0 #000 !important;
+}
+
+.searchButtons {
+    width: 40px !important;
+    height: 40px !important;
+    background-size: 100% 100% !important;
+    border: 0px !important;
+    margin-right: 5px !important;
+
+    box-shadow: 0 2px 4px 0 #000, 0 3px 10px 0 #000 !important;
+    -moz-box-shadow: 0 2px 4px 0 #000, 0 3px 10px 0 #000 !important;
+    -webkit-box-shadow: 0 2px 4px 0 #000, 0 3px 10px 0 #000 !important;
+    -o-box-shadow: 0 2px 4px 0 #000, 0 3px 10px 0 #000 !important;
+}
+
+#googleButton {
+    background-image: url("../images/googleLogo.png");
+}
+
+#bingButton {
+    background-image: url("../images/bingLogo.png");
+}
+
+#yahooButton {
+    background-image: url("../images/yahooLogo.png");
+}
+
+#wikipediaButton {
+    background-image: url("../images/wikipediaLogo.png");
+}
+
