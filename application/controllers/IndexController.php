@@ -4,22 +4,29 @@
  * @class       IndexController
  * @path        application/controllers/IndexController.php
  * @description This class acts as the IndexController.
+ *
  */
+
 class IndexController extends Zend_Controller_Action
 {
 
     private $_users = null;
 
+    private $_twitter = null;
+
     public function init()
     {
         $this->_users = new Application_Model_DbTable_User();
+        $this->_twitter = new Application_Model_Twitter_Twitter();
     }
 
     /**
      * @function    indexAction()
-     * @description This function performs the actions to be taken when index page is loaded.
+     * @description This function performs the actions to be taken when index page is
+     * loaded.
      * @params      none
      * @return      none
+     *
      */
     public function indexAction()
     {
@@ -80,6 +87,20 @@ class IndexController extends Zend_Controller_Action
             }
         }
 
+        // Check if the app has the OAuthToken for Twitter
+        // If not, call the function getOAuthToken()
+        // Else call the function twitterAction() to get user-timeline
+
+        if (isset($_SESSION['twitterWidgetProgress'])
+            && ('A' == $_SESSION['twitterWidgetProgress']))
+        {
+            try {
+                $this->twitterAction();
+            } catch (Exception $exc) {
+                $_SESSION['twitterWidgetProgress'] = 'Z';
+                error_log($exc->getMessage());
+            }
+        }
     }
 
     /**
@@ -87,6 +108,7 @@ class IndexController extends Zend_Controller_Action
      * @description This function is used to authenticate the user.
      * @params      array $formData array of form data
      * @return      none
+     *
      */
     public function signIn($formData)
     {
@@ -120,6 +142,7 @@ class IndexController extends Zend_Controller_Action
      * @description This function is used to register the user.
      * @params      array $formData array of form data
      * @return      none
+     *
      */
     public function signUp($formData)
     {
@@ -135,6 +158,7 @@ class IndexController extends Zend_Controller_Action
      * @description This function is used to sign out a user from the app.
      * @params      none
      * @return      none
+     *
      */
     public function signOutAction()
     {
@@ -144,4 +168,23 @@ class IndexController extends Zend_Controller_Action
         $redirector->gotoUrlAndExit('index/index');
     }
 
+    /**
+     * @function    twitterAction()
+     * @description This function gets the users home-timeline
+     *              and displays it in the widget.
+     * @params      none
+     * @return      none
+     *
+     */
+    public function twitterAction()
+    {
+        $this->view->twitterData = $this->_twitter->getAccessToken();
+    }
+
+    public function twitterRefreshAction()
+    {
+        $this->_twitter->getOAuthToken();
+    }
+
 }
+
