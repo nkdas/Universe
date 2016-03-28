@@ -14,6 +14,7 @@
           <actionMethod actionName="facebookSignIn"/>
           <actionMethod actionName="twitter"/>
           <actionMethod actionName="twitterLogin"/>
+          <actionMethod actionName="twitterRefresh"/>
         </controllerFile>
         <controllerFile controllerName="Error"/>
       </controllersDirectory>
@@ -58,6 +59,9 @@
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="Index">
             <viewScriptFile forActionName="twitterLogin"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Index">
+            <viewScriptFile forActionName="twitterRefresh"/>
           </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>
