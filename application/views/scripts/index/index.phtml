@@ -71,20 +71,55 @@ $isSignedIn = false;
         </div>
     </div>
     <div class="row">
-        <div id="gmailWidget" class="col-md-4 widgets">
-        </div>
-
-        <div id="facebookWidget" class="col-md-4 widgets">
-        </div>
-
-        <div id="twitterWIdget" class="col-md-4 widgets">
-            <div class="row">
-                <p>Twitter</p>
+        <div class="col-md-4">
+            <div id="gMailWidget" class="widgets">
+                <div id="gMailHeader">
+                    <h2>GMail</h2>
+                    <label>
+                        <?php
+                        echo "<a href='" . $this->baseUrl() . "/index/gmail-refresh'>
+                        <span class='fa fa-refresh'></span></a>";
+                        ?>
+                    </label>
+                </div>
+                <div id="gMailBody">
+                    <?php echo $this->gmailData; ?>
+                </div>
             </div>
-            <p>
-                <?php echo $this->twitterData; ?>
-            </p>
+        </div>
+
+        <div class="col-md-4">
+            <div id="facebookWidget" class="widgets">
+                <div id="facebookHeader">
+                    <h2>Facebook</h2>
+                    <label>
+                        <?php
+                        echo "<a href='" . $this->baseUrl() . "/index/facebook-refresh'>
+                        <span class='fa fa-refresh'></span></a>";
+                        ?>
+                    </label>
+                </div>
+                <div id="facebookBody">
+                    <?php echo $this->facebookData; ?>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div id="twitterWIdget" class="widgets">
+                <div id="twitterHeader">
+                    <h2>Twitter</h2>
+                    <label>
+                    <?php
+                    echo "<a href='" . $this->baseUrl() . "/index/twitter-refresh'>
+                        <span class='fa fa-refresh'></span></a>";
+                    ?>
+                    </label>
+                </div>
+                <div id="twitterBody">
+                    <?php echo $this->twitterData; ?>
+                </div>
+            </div>
         </div>
     </div>
-
 </div>
