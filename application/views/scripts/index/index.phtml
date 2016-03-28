@@ -19,6 +19,7 @@
                 <div class="tab-pane" id="signIn">
                     <h3>Sign in</h3>
                     <?php echo $this->signinForm; ?>
+                    <div class="g-signin2" data-onsuccess="onSignIn"></div>
                 </div>
                 <div class="tab-pane" id="signUp">
                     <h3>Sign up</h3>
@@ -30,5 +31,99 @@
             </div>
         </div>
     </div>
-    <h1>Hi! Great to see You.</h1>
+  <!--   <h1>Universe</h1> -->
+  <div class="universe" title="Universe" align="left" id="ulogo"></div>
+    
+    <div id='GImage'></div>
+    <div id='GName'></div>
+    <!-- <div class="g-signin2" data-onsuccess="onSignIn"></div> -->
+    <div id = 'g-signout'></div>
+    
+    <!--Gmail-->
+    <div class='gmail-div'>
+      <h3>Gmail</h3>
+      <a href="#compose-modal" data-toggle="modal" id="compose-button" class="btn btn-primary hidden">Compose</a>
+      <button id="authorize-button" class="btn btn-primary hidden">Gmail</button>
+      <div class="mail-table">
+        <table class="table-hover table table-inbox hidden">
+          <thead>
+            <tr>
+              <th>From</th>
+              <th>Subject</th>
+              <th>Date/Time</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!--This model is to compose a mail-->
+    <div class="modal fade" id="compose-modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title">Compose</h4>
+          </div>
+          <form onsubmit="return sendEmail();">
+            <div class="modal-body">
+              <div class="form-group">
+                <input type="email" class="form-control" id="compose-to" placeholder="To" required />
+              </div>
+
+              <div class="form-group">
+                <input type="text" class="form-control" id="compose-subject" placeholder="Subject" required />
+              </div>
+
+              <div class="form-group">
+                <textarea class="form-control" id="compose-message" placeholder="Message" rows="10" required></textarea>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="submit" id="send-button" class="btn btn-primary">Send</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!--This model is to replay the mail in the inbox-->
+    <div class="modal fade" id="reply-modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title">Reply</h4>
+          </div>
+          <form onsubmit="return sendReply();">
+            <input type="hidden" id="reply-message-id" />
+
+            <div class="modal-body">
+              <div class="form-group">
+                <input type="text" class="form-control" id="reply-to" disabled />
+              </div>
+
+              <div class="form-group">
+                <input type="text" class="form-control disabled" id="reply-subject" disabled />
+              </div>
+
+              <div class="form-group">
+                <textarea class="form-control" id="reply-message" placeholder="Message" rows="10" required></textarea>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="submit" id="reply-button" class="btn btn-primary">Send</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
 </div>
