@@ -1,15 +1,28 @@
+<?php
+$userName = '';
+$isSignedIn = false;
+?>
+
 <div id="wrapper">
     <?php if(isset($this->message)) :?>
         <div class="notification">
-
-            <?php echo $this->message ;?>
-
+            <?php echo $this->message;?>
         </div>
     <?php endif;?>
     <div id="sidebar-wrapper">
         <div class="sidebar-nav nav" id="sidebar-nav">
             <ul id="sidebar-icons">
-                <li><a href="#signIn" data-toggle="tab"><span class="menu-open fa fa-sign-in"></span></a></li>
+                <li>
+                    <?php
+                    if ($this->isSignedIn) {
+                        echo "<a href='" . $this->baseUrl() . "/index/sign-out'>
+                            <span class='fa fa-sign-out'></span></a>";
+                    } else {
+                        echo "<a href='#signIn' data-toggle='tab'>
+                            <span class='menu-open fa fa-sign-in'></span></a>";
+                    }
+                    ?>
+                </li>
                 <li><a href="#signUp" data-toggle="tab"><span class="menu-open fa fa-user"></span></a></li>
                 <li><a href="#" data-toggle="tab"><span class="fa fa-cogs"></span></a></li>
                 <li><a href="#about" data-toggle="tab"><span class="menu-open fa fa-info-circle"></span></a></li>
@@ -18,22 +31,37 @@
             <div class="tab-content">
                 <div class="tab-pane" id="signIn">
                     <h3>Sign in</h3>
-                    <?php echo $this->signinForm; ?>
-                    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+                    <div class="forms">
+                        <?php
+                        echo $this->signInForm;
+                        ?>
+                        <h4>Don't have an account?<br>Sign up by clicking the
+                            <span class="menu-open fa fa-user"></span> on the sidebar.</h4>
+                        <h4>Or Sign in with</h4>
+                        <div class="fb-login-button" data-size="medium" data-show-faces="false"
+                             data-auto-logout-link="true"></div>
+                        <div id="facebookLogin">
+                        </div>
+                        <div class="g-signin2" data-onsuccess="onSignIn"></div>
+                        <h3></h3>
+                    </div>
                 </div>
                 <div class="tab-pane" id="signUp">
                     <h3>Sign up</h3>
-                    <?php echo $this->signupForm; ?>
+                    <div class="forms">
+                        <?php echo $this->signUpForm; ?>
+                    </div>
                 </div>
                 <div class="tab-pane" id="about">
                     <h3>About</h3>
+                    <p>
+                        Universe is a Web Portal application. Designed to get your Mails, News,
+                        Social Media, Weather Reporting, Maps and more.<br>All in one place.
+                    </p>
                 </div>
             </div>
         </div>
     </div>
-  <!--   <h1>Universe</h1> -->
-  <div class="universe" title="Universe" align="left" id="ulogo"></div>
-    
     <div id='GImage'></div>
     <div id='GName'></div>
     <!-- <div class="g-signin2" data-onsuccess="onSignIn"></div> -->
@@ -124,6 +152,30 @@
           </form>
         </div>
       </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <h1>Hi! Great to see You.</h1>
+        </div>
+        <div class="col-md-8">
+            <?php echo $this->webSearchForm; ?>
+        </div>
+    </div>
+    <div class="row">
+        <div id="gmailWidget" class="col-md-4 widgets">
+        </div>
+
+        <div id="facebookWidget" class="col-md-4 widgets">
+        </div>
+
+        <div id="twitterWIdget" class="col-md-4 widgets">
+            <div class="row">
+                <p>Twitter</p>
+            </div>
+            <p>
+                <?php echo $this->twitterData; ?>
+            </p>
+        </div>
     </div>
 
 </div>

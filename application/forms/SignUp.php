@@ -1,6 +1,6 @@
 <?php
 
-require_once 'SignIn.php';
+require_once 'Decorator.php';
 
 class Application_Form_SignUp extends Zend_Form
 {
@@ -9,15 +9,14 @@ class Application_Form_SignUp extends Zend_Form
     {
         $this->setName('signUp');
 
-
-        $decorator = new My_Decorator_SimpleInput();
+        $inputDecorator = new InputDecorator();
 
         $firstName = new Zend_Form_Element_Text(
             'firstName', array(
                 'type' => 'text',
                 'placeholder' => 'First Name',
                 'required' => 'true',
-                'decorators' => array($decorator),
+                'decorators' => array($inputDecorator),
             )
         );
 
@@ -28,7 +27,7 @@ class Application_Form_SignUp extends Zend_Form
                 'type' => 'text',
                 'placeholder' => 'Last Name',
                 'required' => 'true',
-                'decorators' => array($decorator),
+                'decorators' => array($inputDecorator),
             )
         );
 
@@ -36,7 +35,7 @@ class Application_Form_SignUp extends Zend_Form
             'email', array(
                 'type' => 'text',
                 'placeholder' => 'Email',
-                'decorators' => array($decorator),
+                'decorators' => array($inputDecorator),
             )
         );
 
@@ -44,7 +43,7 @@ class Application_Form_SignUp extends Zend_Form
             'password', array(
                 'type' => 'password',
                 'placeholder' => 'Password',
-                'decorators' => array($decorator),
+                'decorators' => array($inputDecorator),
             )
         );
 
@@ -52,13 +51,14 @@ class Application_Form_SignUp extends Zend_Form
             'reTypePassword', array(
                 'type' => 'password',
                 'placeholder' => 'Re-enter Password',
-                'decorators' => array($decorator),
+                'decorators' => array($inputDecorator),
             )
         );
 
-        $buttonDecorator = new My_Decorator_SimpleButton();
+        $buttonDecorator = new ButtonDecorator();
         $submit = new Zend_Form_Element_Submit(
             'submit', array(
+                'id' => 'signUpButton',
                 'value' => 'Sign up',
                 'type' => 'submit',
                 'decorators' => array($buttonDecorator),
@@ -69,4 +69,3 @@ class Application_Form_SignUp extends Zend_Form
     }
 
 }
-
