@@ -91,13 +91,13 @@ class IndexController extends Zend_Controller_Action
         // If not, call the function getOAuthToken()
         // Else call the function twitterAction() to get user-timeline
 
-        if (isset($_SESSION['twitterWidgetProgress'])
-            && ('A' == $_SESSION['twitterWidgetProgress']))
+        if (isset($_SESSION['isOAuthTokenPresent'])
+            && ('1' == $_SESSION['isOAuthTokenPresent']))
         {
             try {
                 $this->twitterAction();
             } catch (Exception $exc) {
-                $_SESSION['twitterWidgetProgress'] = 'Z';
+                $_SESSION['isOAuthTokenPresent'] = '0';
                 error_log($exc->getMessage());
             }
         }
