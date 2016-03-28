@@ -24,6 +24,18 @@ class IndexController extends Zend_Controller_Action
     public function indexAction()
     {
 
+        // Check if a user is already logged in and change
+        // the sign in icon to sign out
+        try {
+            $registry = Zend_Registry::getInstance();
+            if (isset($registry)){
+                $this->view->userName = $registry->get('userName');
+                $this->view->isSignedIn = $registry->get('isSignedIn');
+            }
+        }catch(Exception $exception){
+            error_log($exception->getMessage());
+        }
+
         // Display the WebSearch form
         $webSearchForm = new Application_Form_WebSearch();
         $this->view->webSearchForm = $webSearchForm;
