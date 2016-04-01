@@ -18,6 +18,25 @@ class Application_Form_SignIn extends Zend_Form
                 'decorators' => array($inputDecorator),
             )
         );
+        $email->setRequired(true)
+            ->addValidator(
+                'notEmpty',
+                false,
+                array(
+                    'messages' => array(
+                        'isEmpty' => 'Email Id cannot be blank'
+                    )
+                )
+            )
+            ->addValidator(
+                'EmailAddress',
+                false,
+                array(
+                    'messages' => array(
+                        'emailAddressInvalidFormat' => 'The Email Id is invalid'
+                    )
+                )
+            );
 
         $password = new Zend_Form_Element_Password(
             'password', array(
@@ -27,6 +46,16 @@ class Application_Form_SignIn extends Zend_Form
                 'decorators' => array($inputDecorator),
             )
         );
+        $password->setRequired(true)
+            ->addValidator(
+                'notEmpty',
+                false,
+                array(
+                    'messages' => array(
+                        'isEmpty' => 'Password cannot be blank'
+                    )
+                )
+            );
 
         $buttonDecorator = new ButtonDecorator();
         $submit = new Zend_Form_Element_Submit(
