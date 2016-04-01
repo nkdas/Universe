@@ -8,12 +8,11 @@
 class Application_Model_DbTable_User extends Zend_Db_Table_Abstract
 {
 
-    protected $_name = 'users';
-
     /**
      * @function    saveData()
      * @description This function gets an array of form data and saves them to the database.
-     * @params      array $formData array of form data
+     * @param       array $formData array of form data
+     *
      * @return      boolean returns true when success and false when failure.
      */
     public function saveData($formData)
