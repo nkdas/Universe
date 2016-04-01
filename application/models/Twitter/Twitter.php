@@ -24,8 +24,8 @@ class Application_Model_Twitter_Twitter
      * @description This function gets the OAuthToken after authenticating a user to Twitter
      *              The OAuthToken is exchanged with Twitter to get AccessToken, Which on the
      *              other hand is required by the app to get users home-timeline.
-     * @params      none
-     * @return      none
+     *
+     * @return      void
      */
     public function getOAuthToken()
     {
@@ -65,7 +65,7 @@ class Application_Model_Twitter_Twitter
      * @function    getAccessToken()
      * @description This function exchanges the OAuthToken with Twitter to get AccessToken,
      *              and uses it to get users home-timeline.
-     * @params      none
+     *
      * @return      string $twitterData string containing the contents of users home-timeline.
      */
     public function getAccessToken()
