@@ -13,6 +13,8 @@ echo $this->doctype('HTML5') . "\n"; ?>
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
     <?php echo $this->headLink()->prependStylesheet($this->baseUrl().'/css/style.css') . "\n"; ?>
+    <!--youtube-->
+    <?php echo $this->headLink()->prependStylesheet($this->baseUrl().'/css/youtubeStyle.css') . "\n"; ?>
 </head>
 <body>
 <div id="content" class="container-fluid">
@@ -25,8 +27,12 @@ echo $this->doctype('HTML5') . "\n"; ?>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <script src="https://apis.google.com/js/platform.js" async defer></script>
 <?php echo $this->headScript()->prependFile($this->baseUrl().'/js/universe.js') ?>
+<!--Gmail-->
 <?php echo $this->headScript()->prependFile($this->baseUrl().'/js/gmail.js') ?>
   <script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
 <?php echo $this->headScript()->prependFile($this->baseUrl().'/js/facebookUniverse.js') ?>
+<!--youtube-->
+<?php echo $this->headScript()->prependFile($this->baseUrl().'/js/youtube.js') ?>
+<script src="https://apis.google.com/js/client.js?onload=init"></script>
 </body>
 </html>
