@@ -177,7 +177,7 @@ iframe {
     height: auto;
 }
 .gmail-div {
-    width:350px;
+    /*width:350px;*/
 }
 
 .widgets {
@@ -246,6 +246,11 @@ iframe {
     background-color: #3B5998;
     height: 50px !important;
 }
+#youtubeHeader {
+    margin-top: 5%;
+    background: #cc181e;
+    height: 50px !important;
+}
 
 .widgets h2 {
     font-family: 'Roboto', sans-serif !important;
@@ -266,11 +271,12 @@ iframe {
     font-size: 30px !important;
 }
 
-#twitterBody , #gMailBody, #facebookBody{
+#twitterBody , #gMailBody, #facebookBody, #youtubeBody{
     height: 440px !important;
     padding-left: 5px;
     padding-right: 5px;
     overflow-y: scroll !important;
+    width: 100% !important;
 }
 
 #twitterBody h3 {
@@ -280,4 +286,18 @@ iframe {
 .tweet {
     font-family: 'Marck Script', cursive;
     font-size: 24px !important;
+}
+
+@media screen and (max-width: 1000px) {
+    .table-responsive>.table>tbody>tr>td, .table-responsive>.table>tbody>tr>th, .table-responsive>.table>tfoot>tr>td, .table-responsive>.table>tfoot>tr>th, .table-responsive>.table>thead>tr>td, .table-responsive>.table>thead>tr>th {
+        white-space:  normal !important;
+        word-break: break-all !important;
+    }
+}
+
+.fa-external-link {
+    padding-right: 5%;
+}
+.widget-icon{
+    padding: 1%;
 }
