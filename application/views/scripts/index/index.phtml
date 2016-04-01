@@ -1,14 +1,14 @@
 <?php
-$userName = '';
 $isSignedIn = false;
 ?>
 
 <div id="wrapper">
-    <?php if(isset($this->message)) :?>
-        <div class="notification">
-            <?php echo $this->message;?>
-        </div>
-    <?php endif;?>
+        <?php if(isset($this->message)) :?>
+            <div class="notification alert alert-danger">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <?php echo $this->message;?>
+            </div>
+        <?php endif;?>
     <div id="sidebar-wrapper">
         <div class="sidebar-nav nav" id="sidebar-nav">
             <ul id="sidebar-icons">
@@ -64,7 +64,7 @@ $isSignedIn = false;
 
     <div class="row">
         <div class="col-md-4">
-            <h1>Hi! Great to see You.</h1>
+            <h1>Hi! <?php echo $this->firstName; ?> Great to see You.</h1>
         </div>
         <div class="col-md-8">
             <?php echo $this->webSearchForm; ?>
@@ -106,7 +106,7 @@ $isSignedIn = false;
         </div>
 
         <div class="col-md-4">
-            <div id="twitterWIdget" class="widgets">
+            <div id="twitterWidget" class="widgets">
                 <div id="twitterHeader">
                     <h2>Twitter</h2>
                     <label>
@@ -118,6 +118,45 @@ $isSignedIn = false;
                 </div>
                 <div id="twitterBody">
                     <?php echo $this->twitterData; ?>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+        </div>
+        <div class="col-md-6">
+            <div id="googleMapWidget" class="landscapeWidgets">
+                <div id="googleMapHeader">
+                    <h2>Google Map</h2>
+                    <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+                </div>
+                <div id="googleMap">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <div id="weatherWidget" class="landscapeWidgets">
+                <div id="weatherHeader">
+                    <h2>Weather</h2>
+                    <label>
+                        <?php
+                        echo "<a href='" . $this->baseUrl() . "/index/twitter-refresh'>
+                        <span class='fa fa-refresh'></span></a>";
+                        ?>
+                    </label>
+                </div>
+                <div id="weatherBody">
+                    <div id="weather">
+                        <ul id="scroller">
+                            <!-- The forecast items will go here -->
+                        </ul>
+                        <a href="#" class="arrow previous">Previous</a>
+                        <a href="#" class="arrow next">Next</a>
+                        <p class="location"></p>
+                    </div>
                 </div>
             </div>
         </div>
