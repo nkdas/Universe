@@ -1,32 +1,31 @@
 <?php
 
+require_once APPLICATION_PATH . '/models/Facebook/FacebookLogin.php';
+
 /**
  * @class       IndexController
  * @path        application/controllers/IndexController.php
  * @description This class acts as the IndexController.
- *
  */
-
 class IndexController extends Zend_Controller_Action
 {
-
+    private $_facebook = null;
     private $_users = null;
-
     private $_twitter = null;
 
     public function init()
     {
         $this->_users = new Application_Model_DbTable_User();
         $this->_twitter = new Application_Model_Twitter_Twitter();
+        $this->_facebook = new Application_Model_Facebook_FacebookLogin();
     }
 
     /**
      * @function    indexAction()
      * @description This function performs the actions to be taken when index page is
-     * loaded.
-     * @params      none
-     * @return      none
+     *              loaded.
      *
+     * @return      void
      */
     public function indexAction()
     {
@@ -34,10 +33,9 @@ class IndexController extends Zend_Controller_Action
         // Check if a user is already logged in and change
         // the sign in icon to sign out
         try {
-            $registry = Zend_Registry::getInstance();
-            if (isset($registry)){
-                $this->view->userName = $registry->get('userName');
-                $this->view->isSignedIn = $registry->get('isSignedIn');
+            if (isset($_SESSION['firstName'])){
+                $this->view->isSignedIn = true;
+                $this->view->firstName = $_SESSION['firstName'];
             }
         }catch(Exception $exception){
             error_log($exception->getMessage());
@@ -62,13 +60,27 @@ class IndexController extends Zend_Controller_Action
             $formData = $this->getRequest()->getPost();
 
             // If user is trying to sign in
-            if ('Sign in' == ($formData['submit']) && $signInForm->isValid($formData)) {
-                $this->signIn($formData);
+            if ('Sign in' == ($formData['submit'])) {
+                if ($signInForm->isValid($formData)) {
+                    $this->signIn($formData);
+                } else {
+                    $messageArrays = $signInForm->getMessages();
+                    $message = $this->prepareMessages($messageArrays);
+                    $this->view->message = $message;
+                }
             }
+
             // If user is trying to sign up
-            if ('Sign up' == ($formData['submit']) && $signUpForm->isValid($formData)) {
-                $this->signUp($formData);
+            if ('Sign up' == ($formData['submit'])) {
+                if ($signUpForm->isValid($formData)) {
+                    $this->signUp($formData);
+                } else {
+                    $messageArrays = $signUpForm->getMessages();
+                    $message = $this->prepareMessages($messageArrays);
+                    $this->view->message = $message;
+                }
             }
+
             // If user is performing web search with bing
             if (array_key_exists('bingButton', $formData)) {
                 $this->redirect('http://bing.com/search?q=' . urlencode($formData['searchBox']));
@@ -106,9 +118,9 @@ class IndexController extends Zend_Controller_Action
     /**
      * @function    signIn()
      * @description This function is used to authenticate the user.
-     * @params      array $formData array of form data
-     * @return      none
+     * @param       array $formData array of form data
      *
+     * @return      void
      */
     public function signIn($formData)
     {
@@ -125,24 +137,26 @@ class IndexController extends Zend_Controller_Action
 
             $auth = Zend_Auth::getInstance();
             $result = $auth->authenticate($authAdapter);
+
+            if($result->isValid()) {
+                $auth->getStorage()->write($authAdapter->getResultRowObject(null, 'password'));
+                $this->_redirect('index/index');
+            } else {
+                $this->view->message = "Invalid email or password. Please try again.";
+            }
+
         } catch (Exception $exception) {
             error_log($exception->getMessage());
         }
 
-        if($result->isValid()) {
-            $auth->getStorage()->write($authAdapter->getResultRowObject(null, 'password'));
-            $this->_redirect('index/index');
-        } else {
-            $this->view->message = "Invalid email or password. Please try again.";
-        }
     }
 
     /**
      * @function    signUp()
      * @description This function is used to register the user.
-     * @params      array $formData array of form data
-     * @return      none
+     * @param       array $formData array of form data
      *
+     * @return      void
      */
     public function signUp($formData)
     {
@@ -156,12 +170,12 @@ class IndexController extends Zend_Controller_Action
     /**
      * @function    signOutAction()
      * @description This function is used to sign out a user from the app.
-     * @params      none
-     * @return      none
      *
+     * @return      void
      */
     public function signOutAction()
     {
+        session_destroy();
         $storage = new Zend_Auth_Storage_Session();
         $storage->clear();
         $redirector = Zend_Controller_Action_HelperBroker::getStaticHelper('Redirector');
@@ -172,9 +186,8 @@ class IndexController extends Zend_Controller_Action
      * @function    twitterAction()
      * @description This function gets the users home-timeline
      *              and displays it in the widget.
-     * @params      none
-     * @return      none
      *
+     * @return      void
      */
     public function twitterAction()
     {
@@ -186,5 +199,27 @@ class IndexController extends Zend_Controller_Action
         $this->_twitter->getOAuthToken();
     }
 
-}
+    public function prepareMessages($messageArrays)
+    {
+        $messageString='';
+        foreach ($messageArrays as $messageArray) {
+            foreach ($messageArray as $message) {
+                if ($message != '') {
+                    $messageString .= $message.'<br>';
+                }
+            }
+        }
+        return $messageString;
+    }
 
+    public function facebookSignInAction()
+    {
+        $this->facebook->getUserDetails();
+        $this->view->userName = $_SESSION['userName'];
+    }
+
+    public function facebookRefreshAction()
+    {
+        $this->_facebook->getFacebookLogin();
+    }
+}
