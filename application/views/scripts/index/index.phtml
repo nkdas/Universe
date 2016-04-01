@@ -42,6 +42,7 @@ $isSignedIn = false;
                              data-auto-logout-link="true"></div>
                         <div id="facebookLogin">
                         </div>
+                        <div class="g-signin2" data-onsuccess="onSignIn"></div>
                         <h3></h3>
                     </div>
                 </div>
@@ -61,6 +62,10 @@ $isSignedIn = false;
             </div>
         </div>
     </div>
+    <div id='GImage'></div>
+    <div id='GName'></div>
+    <!-- <div class="g-signin2" data-onsuccess="onSignIn"></div> -->
+    <div id = 'g-signout'></div>
 
     <div class="row">
         <div class="col-md-4">
@@ -70,24 +75,113 @@ $isSignedIn = false;
             <?php echo $this->webSearchForm; ?>
         </div>
     </div>
+    <!--Gmail Widget-->
     <div class="row">
         <div class="col-md-4">
             <div id="gMailWidget" class="widgets">
                 <div id="gMailHeader">
-                    <h2>GMail</h2>
+                   <!--  <span class='fa fa-google fa-2x'> -->
+                    <h2>G-Mail</h2>
                     <label>
                         <?php
-                        echo "<a href='" . $this->baseUrl() . "/index/gmail-refresh'>
-                        <span class='fa fa-refresh'></span></a>";
+                            echo "<a href='https://www.gmail.com' target='_blank'>
+                            <span class='fa fa-external-link'></span></a>";
+                            echo "<a href='" . $this->baseUrl() . "/index/gmail-refresh'>
+                            <span class='fa fa-refresh'></span></a>";
                         ?>
                     </label>
                 </div>
                 <div id="gMailBody">
-                    <?php echo $this->gmailData; ?>
+
+                        <!--Gmail-->
+                        <div class='gmail-div'>
+                          <a href="#compose-modal" data-toggle="modal" id="compose-button" class="btn btn-primary hidden">Compose</a>
+                          <button id="authorize-button" class="btn btn-primary hidden">Gmail</button>
+                          <div class="mail-table table-responsive">
+                            <table class="table-hover table table-inbox hidden">
+                              <thead>
+                                <tr>
+                                  <th>From</th>
+                                  <th>Subject</th>
+                                  <th>Date/Time</th>
+                                </tr>
+                              </thead>
+                              <tbody></tbody>
+                            </table>
+                          </div>
+                        </div>
+
+                        <!--This model is to compose a mail-->
+                        <div class="modal fade" id="compose-modal" tabindex="-1" role="dialog">
+                          <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                                <h4 class="modal-title">Compose</h4>
+                              </div>
+                              <form onsubmit="return sendEmail();">
+                                <div class="modal-body">
+                                  <div class="form-group">
+                                    <input type="email" class="form-control" id="compose-to" placeholder="To" required />
+                                  </div>
+
+                                  <div class="form-group">
+                                    <input type="text" class="form-control" id="compose-subject" placeholder="Subject" required />
+                                  </div>
+
+                                  <div class="form-group">
+                                    <textarea class="form-control" id="compose-message" placeholder="Message" rows="10" required></textarea>
+                                  </div>
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                  <button type="submit" id="send-button" class="btn btn-primary">Send</button>
+                                </div>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+
+                        <!--This model is to replay the mail in the inbox-->
+                        <div class="modal fade" id="reply-modal" tabindex="-1" role="dialog">
+                          <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                                <h4 class="modal-title">Reply</h4>
+                              </div>
+                              <form onsubmit="return sendReply();">
+                                <input type="hidden" id="reply-message-id" />
+
+                                <div class="modal-body">
+                                  <div class="form-group">
+                                    <input type="text" class="form-control" id="reply-to" disabled />
+                                  </div>
+
+                                  <div class="form-group">
+                                    <input type="text" class="form-control disabled" id="reply-subject" disabled />
+                                  </div>
+
+                                  <div class="form-group">
+                                    <textarea class="form-control" id="reply-message" placeholder="Message" rows="10" required></textarea>
+                                  </div>
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                  <button type="submit" id="reply-button" class="btn btn-primary">Send</button>
+                                </div>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
                 </div>
             </div>
         </div>
-
+        <!--facebook Widget-->
         <div class="col-md-4">
             <div id="facebookWidget" class="widgets">
                 <div id="facebookHeader">
@@ -104,15 +198,18 @@ $isSignedIn = false;
                 </div>
             </div>
         </div>
-
+        <!--Twitter Widget-->
         <div class="col-md-4">
             <div id="twitterWidget" class="widgets">
                 <div id="twitterHeader">
+                    <!-- <span class='fa fa-twitter widget-icon fa-2x'> -->
                     <h2>Twitter</h2>
                     <label>
                     <?php
-                    echo "<a href='" . $this->baseUrl() . "/index/twitter-refresh'>
-                        <span class='fa fa-refresh'></span></a>";
+                        echo "<a href='https://twitter.com' target='_blank'>
+                                <span class='fa fa-external-link'></span></a>";
+                        echo "<a href='" . $this->baseUrl() . "/index/twitter-refresh'>
+                            <span class='fa fa-refresh'></span></a>";
                     ?>
                     </label>
                 </div>
@@ -122,8 +219,38 @@ $isSignedIn = false;
             </div>
         </div>
     </div>
+
     <div class="row">
         <div class="col-md-6">
+            <div id="youtubeWidget" class="widgets">
+                <div id="youtubeHeader">
+                    <!-- <span class='fa widget-icon fa-youtube-play fa-2x'></span> -->
+                    <h2>youtube</h2>
+                    <label>
+                        <?php
+                        echo "<a href='https://www.youtube.com' target='_blank'>
+                            <span class='fa fa-external-link'></span></a>";
+                        echo "<a href='" . $this->baseUrl() . "/index/youtube-refresh'>
+                            <span class='fa fa-refresh'></span></a>";
+                        ?>
+                    </label>
+                </div>
+                <div id="youtubeBody">
+                    <form id="youtube-form" action="#">
+                        <div class="col-md-10">
+                            <p>
+                                <input type="text" id="search" placeholder="Type something..."autocomplete="off" class="form-control" />
+                            </p>
+                        </div>
+                        <div class="col-md-2">
+                            <p>
+                                <button type="submit" value="Search" class="form-control youtube-btn btn btn-primary w100">Search</button>
+                            </p>
+                        </div>
+                    </form>
+                    <div id="youtube-results"></div>
+                </div>
+            </div>
         </div>
         <div class="col-md-6">
             <div id="googleMapWidget" class="landscapeWidgets">

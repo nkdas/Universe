@@ -1,5 +1,5 @@
 <?php
-require_once APPLICATION_PATH . '/../vendor/autoload.php';
+//require_once APPLICATION_PATH . '/../vendor/autoload.php';
 require_once APPLICATION_PATH . '/../library/Universe/AclConfig.php';
 
 use Abraham\TwitterOAuth\TwitterOAuth;
