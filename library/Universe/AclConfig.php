@@ -23,7 +23,7 @@ class Universe_AclConfig extends Zend_Acl
         // Allow admin to access admin controller, index action
         //$this->allow('admin', 'admin::index');
 
-        $registry = Zend_Registry::getInstance();
-        $registry->set('acl', $this);
+        $_SESSION['acl'] = $this;
+
     }
 }

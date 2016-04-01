@@ -6,13 +6,12 @@ class Universe_Controller_Plugin_Acl extends Zend_Controller_Plugin_Abstract
     public function preDispatch(Zend_Controller_Request_Abstract $request)
     {
         $auth = Zend_Auth::getInstance();
-        $acl = new Universe_AclConfig();
+        new Universe_AclConfig();
+
         if($auth->hasIdentity()) {
-            $registry = Zend_Registry::getInstance();
-            $acl = $registry->get('acl');
+            $acl = $_SESSION['acl'];
             $identity = $auth->getIdentity();
-            $registry->set('userName', $identity->firstname);
-            $registry->set('isSignedIn', true);
+
             try {
                 $isAllowed = $acl->isAllowed(
                     $identity->role,
@@ -22,6 +21,9 @@ class Universe_Controller_Plugin_Acl extends Zend_Controller_Plugin_Abstract
 
                 if (!$isAllowed) {
                     $this->endSessionAndExit();
+                } else {
+                    $_SESSION['userId'] = $identity->id;
+                    $_SESSION['firstName'] = $identity->firstName;
                 }
             } catch (Exception $ex) {
                 $this->endSessionAndExit();
