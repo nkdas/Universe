@@ -73,4 +73,15 @@ function testAPI() {
         document.getElementById('facebookLogin').innerHTML =
             'Thanks for logging in, ' + response.name + '!';
     });
+
+    FB.api(
+        "/me/feed",
+        function (response) {
+            if (response && !response.error) {
+                console.log(response);
+            } else {
+                console.log(response.error);
+            }
+        }
+    );
 }
