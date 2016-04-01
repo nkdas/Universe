@@ -18,8 +18,11 @@ echo $this->doctype('HTML5') . "\n"; ?>
     <?php echo $this->layout()->content . "\n"; ?>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <?php echo $this->headScript()->prependFile($this->baseUrl().'/js/universe.js') ?>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.0.0/moment.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD2_nACBJzzxF6AXHzXxcJvYYDTcORZZiA&callback=initMap&libraries=places" async defer></script>
+<?php echo $this->headScript()->prependFile($this->baseUrl().'/js/weather.js') ?>
 <?php echo $this->headScript()->prependFile($this->baseUrl().'/js/facebookUniverse.js') ?>
 </body>
 </html>
