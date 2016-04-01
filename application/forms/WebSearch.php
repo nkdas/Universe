@@ -12,9 +12,9 @@ class Application_Form_WebSearch extends Zend_Form
         $inputDecorator = new InputDecorator();
         $searchBox = new Zend_Form_Element_Text(
             'searchBox', array(
-                'label' => 'Search the Web',
+                'label' => 'Search the web',
                 'type' => 'text',
-                'placeholder' => 'Search the Web',
+                'placeholder' => 'Search the web',
                 'decorators' => array($inputDecorator),
             )
         );
