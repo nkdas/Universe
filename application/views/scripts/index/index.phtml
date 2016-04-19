@@ -244,7 +244,7 @@ $isSignedIn = false;
                         </div>
                         <div class="col-md-2">
                             <p>
-                                <button type="submit" value="Search" class="form-control youtube-btn btn btn-primary w100">Search</button>
+                                <button id="authorize-youtube-button" type="submit" value="Search" class="form-control youtube-btn btn btn-primary w100" onclick="handleYoutubeAuthClick(event)">Search</button>
                             </p>
                         </div>
                     </form>
@@ -287,5 +287,79 @@ $isSignedIn = false;
                 </div>
             </div>
         </div>
-    </div>
+        <div class="col-md-6">
+            <div id="weatherWidget" class="landscapeWidgets">
+                <div id="weatherHeader">
+                    <h2>News</h2>
+                    <label>
+<!--                        --><?php
+//                        echo "<a href='" . $this->baseUrl() . "/index/twitter-refresh'>
+//                        <span class='fa fa-refresh'></span></a>";
+//                        ?>
+                    </label>
+                </div>
+                <div id="newsBody">
+                    <?php
+                    echo $this->newsForm
+                    ?>
+                    <div id="body">
+                        <div id="feedControl">Loading...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Live cricket score-->
+        <div class="col-md-6">
+            <div id="twitterWidget" class="widgets">
+                <div id="twitterHeader">
+                    <!-- <span class='fa fa-twitter widget-icon fa-2x'> -->
+                    <h2>Live Cricket Score</h2>
+                    <label>
+                    <?php
+                        echo "<a href='https://twitter.com' target='_blank'>
+                                <span class='fa fa-external-link'></span></a>";
+                        echo "<a href='" . $this->baseUrl() . "/index/twitter-refresh'>
+                            <span class='fa fa-refresh'></span></a>";
+                    ?>
+                    </label>
+                </div>
+                <div id="cricketBody">
+                   <div id="liveRefresh">
+                        <?php
+                        error_reporting(0);
+                        $content=file_get_contents("http://cricscore-api.appspot.com/csa");
+                        $array = json_decode($content,true);
+                        ?>
+                        <div id='liveScore'>
+                            <?php 
+                            $u=$array[1]['id']; 
+                            ?>
+                        </div>
+                        <?php
+                        echo '<br/>';
+                        $content=file_get_contents("http://cricscore-api.appspot.com/csa?id=$u");
+                        $array = json_decode($content,true);
+                        echo '<h3><font color="#33ccff">Live Match</font> :</h3> ';
+                        echo '<h4>';
+                        echo $array[0]['de'];
+                        echo '</h4>';
+                        $u=$array[0]['de'];
+                        /*header('Refresh:10;URL=index.php');*/
+                        ?>
+                        <h4>Last Match Winner</h4>
+                        <?php
+                        $rss = simplexml_load_file('http://static.cricinfo.com/rss/livescores.xml');
+                        $i = 0;
+                        foreach ($rss->channel->item as $item) {
+                            echo '<div class="line">';
+                            //echo "<p id='allMatches'>" . $item->description . "</p>";
+                            echo "<a class='scoreLink' href =". $i .">". $item->description ."</a>";
+                            echo '</div>';
+                            $i++;
+                        }
+                        ?>
+                    </div>
+                </div>
+            </div>
+        </div>
 </div>

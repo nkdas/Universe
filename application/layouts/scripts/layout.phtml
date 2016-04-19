@@ -10,13 +10,15 @@ echo $this->doctype('HTML5') . "\n"; ?>
     <?php echo $this->headMeta() . "\n"; ?>
     <?php echo $this->headTitle() . "\n"; ?>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
     <?php echo $this->headLink()->prependStylesheet($this->baseUrl().'/css/style.css') . "\n"; ?>
     <!--youtube-->
     <?php echo $this->headLink()->prependStylesheet($this->baseUrl().'/css/youtubeStyle.css') . "\n"; ?>
 </head>
-<body>
+<body onload="defaultFeed()">
 <div id="content" class="container-fluid">
     <h1><?php echo $this->escape($this->title); ?></h1>
     <?php echo $this->layout()->content . "\n"; ?>
@@ -31,10 +33,17 @@ echo $this->doctype('HTML5') . "\n"; ?>
 <?php echo $this->headScript()->prependFile($this->baseUrl().'/js/universe.js') ?>
 <!--Gmail-->
 <?php echo $this->headScript()->prependFile($this->baseUrl().'/js/gmail.js') ?>
-  <script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
+<script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
 <?php echo $this->headScript()->prependFile($this->baseUrl().'/js/facebookUniverse.js') ?>
 <!--youtube-->
 <?php echo $this->headScript()->prependFile($this->baseUrl().'/js/youtube.js') ?>
 <script src="https://apis.google.com/js/client.js?onload=init"></script>
+<script src="https://apis.google.com/js/client.js?onload=checkAuth"></script>
+<!--newsfeeds-->
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script src="http://www.google.com/uds/solutions/dynamicfeed/gfdynamicfeedcontrol.js" type="text/javascript"></script>
+<?php echo $this->headScript()->prependFile($this->baseUrl().'/js/newsfeed.js') ?>
+<!--Cricket-->
+<?php echo $this->headScript()->prependFile($this->baseUrl().'/js/cricket.js') ?>
 </body>
 </html>

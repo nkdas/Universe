@@ -1,5 +1,7 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,300,100);
 @import url(https://fonts.googleapis.com/css?family=Marck+Script);
+/*For news feed*/
+@import url("http://www.google.com/uds/solutions/dynamicfeed/gfdynamicfeedcontrol.css");
 
 body {
     font-family: 'Roboto', sans-serif !important;
@@ -292,12 +294,18 @@ iframe {
     font-size: 30px !important;
 }
 
-#twitterBody , #gMailBody, #facebookBody, #youtubeBody {
+#twitterBody , #gMailBody, #facebookBody, #youtubeBody, #cricketBody{
     height: 440px !important;
     padding-left: 5px;
     padding-right: 5px;
     overflow-y: scroll !important;
     width: 100% !important;
+}
+#cricketBody {
+    background-image: url("../images/sachin.jpg");
+    background-size: cover;
+    /*background-position: right; /*Positioning*/
+    /*background-repeat: no-repeat; /*Prevent showing multiple background images*/
 }
 
 #twitterBody h3 {
@@ -512,5 +520,62 @@ p.location b{
 }
 .widget-icon{
     padding: 1%;
+}
+/*News feed*/
+#feedControl {
+    margin-top : 10px;
+    margin-left: auto;
+    margin-right: auto;
+    width : 90%;
+    font-size: 30px;
+    color: #9CADD0;
+}
+.gfg-root {
+    width: 100%;
+    height: 250px !important;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    font-family: "Arial", sans-serif;
+    font-size: 12px;
+    border: 0px solid #BCCDF0;
+}
+.gfg-entry {
+    background-color: white;
+    width: 100%;
+    height: 6.9em;
+    position: relative;
+    overflow: hidden;
+    text-align: left;
+    margin-top: 3px;
+    font-size: medium;
+}
+/*.widgets a, .landscapeWidgets a {*/
+    /*color: #ECEFF1;*/
+/*}*/
+/*.gfg-title {*/
+    /*font-size: 14px;*/
+    /*font-weight: bold;*/
+    /*background-color: #2566E0;*/
+    /*line-height: 1.4em;*/
+    /*overflow: hidden;*/
+    /*white-space: nowrap;*/
+/*}*/
+/*.gfg-listentry-odd {*/
+    /*background-color: #2566E0;*/
+/*}*/
+.landscapeWidgets a {
+    color: #11aafa;
+    font-size: medium;
+    font-weight: bold;
+}
+/*Cricket*/
+p {
+    margin: 0 0 10px;
+    font: small-caption;
+    color: azure;
+}
+.scoreLink{
+    color: #FFFFFF !important;
 }
 

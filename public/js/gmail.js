@@ -17,7 +17,7 @@ function onSignIn(googleUser) {
   var signOut= '<a href="http://universe.com" onclick="signOut();">Sign out</a>'
   $('.g-signin2').html(signOut);
 
-  console.log('Email: ' + profile.getEmail());
+  /*console.log('Email: ' + profile.getEmail());*/
 }
 
 /**

@@ -1,6 +1,6 @@
 <?php
 
-require_once APPLICATION_PATH . '/models/Facebook/FacebookLogin.php';
+//require_once APPLICATION_PATH . '/models/Facebook/FacebookLogin.php';
 
 /**
  * @class       IndexController
@@ -17,7 +17,7 @@ class IndexController extends Zend_Controller_Action
     {
         $this->_users = new Application_Model_DbTable_User();
         $this->_twitter = new Application_Model_Twitter_Twitter();
-        $this->_facebook = new Application_Model_Facebook_FacebookLogin();
+        //$this->_facebook = new Application_Model_Facebook_FacebookLogin();
     }
 
     /**
@@ -54,6 +54,11 @@ class IndexController extends Zend_Controller_Action
         $signUpForm = new Application_Form_SignUp();
         $signUpForm->submit->setLabel('Signup');
         $this->view->signUpForm = $signUpForm;
+        // Displays the news feeds
+        $newsForm = new Application_Form_News();
+//        $newsForm->submit->setLabel('NewsFeeds');
+        $this->view->newsForm = $newsForm;
+
 
         if ($this->getRequest()->isPost()) {
 
