@@ -1,56 +1,76 @@
-<?php
-$isSignedIn = false;
-?>
-
-<div id="wrapper">
-        <?php if(isset($this->message)) :?>
-            <div class="notification alert alert-danger">
-                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                <?php echo $this->message;?>
+<div class="row">
+    <div class="col-md-12">
+        <div id="themeModal" class="modal fade container-fluid" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;
+                        </button>
+                        <h4 class="modal-title">Themes</h4>
+                    </div>
+                    <div class="modal-body theme-modal-body">
+                        <div id="tulip1" class="theme-showcase"></div>
+                        <div id="tulip2" class="theme-showcase"></div>
+                        <div id="tulip3" class="theme-showcase"></div>
+                        <div id="tulip4" class="theme-showcase"></div>
+                        <div id="tulip5" class="theme-showcase"></div>
+                    </div>
+                </div>
             </div>
-        <?php endif;?>
+        </div>
+    </div>
+</div>
+<div id="wrapper">
+    <div id="message">
+    <?php if(isset($this->message)) :?>
+        <div class="notification alert alert-danger card-shadow">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <?php echo $this->message;?>
+        </div>
+    <?php endif;?>
+    </div>
     <div id="sidebar-wrapper">
         <div class="sidebar-nav nav" id="sidebar-nav">
             <ul id="sidebar-icons">
-                <li>
+                <li id="authLi">
                     <?php
-                    if ($this->isSignedIn) {
-                        echo "<a href='" . $this->baseUrl() . "/index/sign-out'>
-                            <span class='fa fa-sign-out'></span></a>";
-                    } else {
-                        echo "<a href='#signIn' data-toggle='tab'>
-                            <span class='menu-open fa fa-sign-in'></span></a>";
-                    }
+                    echo $this->authLink;
                     ?>
                 </li>
-                <li><a href="#signUp" data-toggle="tab"><span class="menu-open fa fa-user"></span></a></li>
-                <li><a href="#" data-toggle="tab"><span class="fa fa-cogs"></span></a></li>
+                <li><a href="#settings" data-toggle="tab"><span class="menu-open fa fa-cogs"></span></a></li>
                 <li><a href="#about" data-toggle="tab"><span class="menu-open fa fa-info-circle"></span></a></li>
-                <li><a href="#" id="menu-close" data-toggle="tab"><span class="fa fa-close"></span></a></li>
+                <li><a href="#" data-toggle="tab"><span class="menu-close fa fa-close"></span></a></li>
             </ul>
             <div class="tab-content">
                 <div class="tab-pane" id="signIn">
-                    <h3>Sign in</h3>
-                    <div class="forms">
-                        <?php
-                        echo $this->signInForm;
-                        ?>
-                        <h4>Don't have an account?<br>Sign up by clicking the
-                            <span class="menu-open fa fa-user"></span> on the sidebar.</h4>
-                        <h4>Or Sign in with</h4>
-                        <div class="fb-login-button" data-size="medium" data-show-faces="false"
-                             data-auto-logout-link="true"></div>
-                        <div id="facebookLogin">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a data-toggle="tab" href="#signInDiv">Sign in</a></li>
+                        <li><a data-toggle="tab" href="#signUpDiv">Sign up</a></li>
+                    </ul>
+
+                    <div class="tab-content inner-tab-content">
+                        <div id="signInDiv" class="tab-pane fade in active">
+                            <div class="forms">
+                                <?php
+                                echo $this->signInForm;
+                                ?>
+                                <h4>Don't have an account?<br>Sign up</h4>
+                                <h4>Or Sign in with</h4>
+                                <div id="facebookButton" class="menu-close" onclick="fb_login();"><span class="fa fa-facebook-official"></div>
+                                <div class="g-signin2 menu-close" data-onsuccess="onSignIn"></div>
+                            </div>
                         </div>
-                        <div class="g-signin2" data-onsuccess="onSignIn"></div>
-                        <h3></h3>
+                        <div id="signUpDiv" class="tab-pane fade">
+                            <div class="forms">
+                                <?php echo $this->signUpForm; ?>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="tab-pane" id="signUp">
-                    <h3>Sign up</h3>
-                    <div class="forms">
-                        <?php echo $this->signUpForm; ?>
-                    </div>
+                <div class="tab-pane" id="settings">
+                    <h3>Settings</h3>
+                    <button type="button" class="btn" data-toggle="modal"
+                            data-target="#themeModal">Select themes</button>
                 </div>
                 <div class="tab-pane" id="about">
                     <h3>About</h3>
@@ -58,14 +78,21 @@ $isSignedIn = false;
                         Universe is a Web Portal application. Designed to get your Mails, News,
                         Social Media, Weather Reporting, Maps and more.<br>All in one place.
                     </p>
+                    <h3>Privacy policy</h3>
+                    <p>
+                        We here at Universe.com respect your privacy. Your privacy is
+                        important to us and we are always commited to safeguarding it.<br>
+                        Universe.com does not collect any personal information about you
+                        without your knowledge.<br>
+                        When you provide your email Id and other personal information,
+                        we never share it with anyone. We only use it to provide you a better
+                        experience.
+                    </p>
+                    <h3>Universe.com 2016</h3>
                 </div>
             </div>
         </div>
     </div>
-    <div id='GImage'></div>
-    <div id='GName'></div>
-    <!-- <div class="g-signin2" data-onsuccess="onSignIn"></div> -->
-    <div id = 'g-signout'></div>
 
     <div class="row">
         <div class="col-md-4">
@@ -75,139 +102,120 @@ $isSignedIn = false;
             <?php echo $this->webSearchForm; ?>
         </div>
     </div>
-    <!--Gmail Widget-->
+
+    <!-- Widgets -->
     <div class="row">
-        <div class="col-md-4">
-            <div id="gMailWidget" class="widgets">
+        <div class="col-md-8">
+            <div id="gMailWidget" class="widgets card-shadow">
                 <div id="gMailHeader">
-                   <!--  <span class='fa fa-google fa-2x'> -->
-                    <h2>G-Mail</h2>
+                    <h2>GMail</h2>
+                    <button id="authorize-button" class="btn hidden">Sign in</button>
+                    <a href="#compose-modal" data-toggle="modal" id="compose-button"
+                       class="btn hidden">Compose</a>
                     <label>
+                        <a href='https://www.gmail.com' target='_blank'>
+                            <span class='fa fa-external-link'></span></a>
                         <?php
-                            echo "<a href='https://www.gmail.com' target='_blank'>
-                            <span class='fa fa-external-link'></span></a>";
                             echo "<a href='" . $this->baseUrl() . "/index/gmail-refresh'>
                             <span class='fa fa-refresh'></span></a>";
                         ?>
                     </label>
                 </div>
                 <div id="gMailBody">
-
-                        <!--Gmail-->
-                        <div class='gmail-div'>
-                          <a href="#compose-modal" data-toggle="modal" id="compose-button" class="btn btn-primary hidden">Compose</a>
-                          <button id="authorize-button" class="btn btn-primary hidden">Gmail</button>
-                          <div class="mail-table table-responsive">
+                    <div class='gmail-div'>
+                        <div class="mail-table table-responsive">
                             <table class="table-hover table table-inbox hidden">
-                              <thead>
+                                <thead>
                                 <tr>
-                                  <th>From</th>
-                                  <th>Subject</th>
-                                  <th>Date/Time</th>
+                                    <th>From</th>
+                                    <th>Subject</th>
+                                    <th>Date/Time</th>
                                 </tr>
-                              </thead>
-                              <tbody></tbody>
+                                </thead>
+                                <tbody></tbody>
                             </table>
-                          </div>
                         </div>
+                    </div>
 
-                        <!--This model is to compose a mail-->
-                        <div class="modal fade" id="compose-modal" tabindex="-1" role="dialog">
-                          <div class="modal-dialog modal-lg">
+                    <!--This model is to compose a mail-->
+                    <div class="modal fade" id="compose-modal" tabindex="-1" role="dialog">
+                        <div class="modal-dialog modal-lg">
                             <div class="modal-content">
-                              <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                  <span aria-hidden="true">&times;</span>
-                                </button>
-                                <h4 class="modal-title">Compose</h4>
-                              </div>
-                              <form onsubmit="return sendEmail();">
-                                <div class="modal-body">
-                                  <div class="form-group">
-                                    <input type="email" class="form-control" id="compose-to" placeholder="To" required />
-                                  </div>
-
-                                  <div class="form-group">
-                                    <input type="text" class="form-control" id="compose-subject" placeholder="Subject" required />
-                                  </div>
-
-                                  <div class="form-group">
-                                    <textarea class="form-control" id="compose-message" placeholder="Message" rows="10" required></textarea>
-                                  </div>
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    <h4 class="modal-title">Compose</h4>
                                 </div>
-                                <div class="modal-footer">
-                                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                  <button type="submit" id="send-button" class="btn btn-primary">Send</button>
-                                </div>
-                              </form>
+                                <form onsubmit="return sendEmail();">
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <input type="email" class="form-control" id="compose-to" placeholder="To" required />
+                                        </div>
+
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" id="compose-subject" placeholder="Subject" required />
+                                        </div>
+
+                                        <div class="form-group">
+                                            <textarea class="form-control" id="compose-message" placeholder="Message" rows="10" required></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn" data-dismiss="modal">Close</button>
+                                        <button type="submit" id="send-button" class="btn">Send</button>
+                                    </div>
+                                </form>
                             </div>
-                          </div>
                         </div>
+                    </div>
 
-                        <!--This model is to replay the mail in the inbox-->
-                        <div class="modal fade" id="reply-modal" tabindex="-1" role="dialog">
-                          <div class="modal-dialog modal-lg">
+                    <!--This model is to reply the mail in the inbox-->
+                    <div class="modal fade" id="reply-modal" tabindex="-1" role="dialog">
+                        <div class="modal-dialog modal-lg">
                             <div class="modal-content">
-                              <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                  <span aria-hidden="true">&times;</span>
-                                </button>
-                                <h4 class="modal-title">Reply</h4>
-                              </div>
-                              <form onsubmit="return sendReply();">
-                                <input type="hidden" id="reply-message-id" />
-
-                                <div class="modal-body">
-                                  <div class="form-group">
-                                    <input type="text" class="form-control" id="reply-to" disabled />
-                                  </div>
-
-                                  <div class="form-group">
-                                    <input type="text" class="form-control disabled" id="reply-subject" disabled />
-                                  </div>
-
-                                  <div class="form-group">
-                                    <textarea class="form-control" id="reply-message" placeholder="Message" rows="10" required></textarea>
-                                  </div>
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    <h4 class="modal-title">Reply</h4>
                                 </div>
-                                <div class="modal-footer">
-                                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                  <button type="submit" id="reply-button" class="btn btn-primary">Send</button>
-                                </div>
-                              </form>
+                                <form onsubmit="return sendReply();">
+                                    <input type="hidden" id="reply-message-id" />
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" id="reply-to" disabled />
+                                        </div>
+
+                                        <div class="form-group">
+                                            <input type="text" class="form-control disabled" id="reply-subject" disabled />
+                                        </div>
+
+                                        <div class="form-group">
+                                            <textarea class="form-control" id="reply-message" placeholder="Message" rows="10" required></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn" data-dismiss="modal">Close</button>
+                                        <button type="submit" id="reply-button" class="btn">Send</button>
+                                    </div>
+                                </form>
                             </div>
-                          </div>
                         </div>
-                </div>
-            </div>
-        </div>
-        <!--facebook Widget-->
-        <div class="col-md-4">
-            <div id="facebookWidget" class="widgets">
-                <div id="facebookHeader">
-                    <h2>Facebook</h2>
-                    <label>
-                        <?php
-                        echo "<a href='" . $this->baseUrl() . "/index/facebook-refresh'>
-                        <span class='fa fa-refresh'></span></a>";
-                        ?>
-                    </label>
-                </div>
-                <div id="facebookBody">
-                    <?php echo $this->facebookData; ?>
+                    </div>
                 </div>
             </div>
         </div>
         <!--Twitter Widget-->
         <div class="col-md-4">
-            <div id="twitterWidget" class="widgets">
+            <div id="twitterWidget" class="widgets card-shadow">
                 <div id="twitterHeader">
                     <!-- <span class='fa fa-twitter widget-icon fa-2x'> -->
                     <h2>Twitter</h2>
                     <label>
+                        <a href='https://twitter.com' target='_blank'>
+                            <span class='fa fa-external-link'></span></a>
                     <?php
-                        echo "<a href='https://twitter.com' target='_blank'>
-                                <span class='fa fa-external-link'></span></a>";
                         echo "<a href='" . $this->baseUrl() . "/index/twitter-refresh'>
                             <span class='fa fa-refresh'></span></a>";
                     ?>
@@ -222,14 +230,23 @@ $isSignedIn = false;
 
     <div class="row">
         <div class="col-md-6">
-            <div id="youtubeWidget" class="widgets">
+            <div id="googleMapWidget" class="landscapeWidgets card-shadow">
+                <div id="googleMapHeader">
+                    <h2>Google Map</h2>
+                </div>
+                <div id="googleMap">
+                    <input id="pac-input" class="controls form-control" type="text" placeholder="Search Box">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div id="youtubeWidget" class="landscapeWidgets card-shadow">
                 <div id="youtubeHeader">
-                    <!-- <span class='fa widget-icon fa-youtube-play fa-2x'></span> -->
-                    <h2>youtube</h2>
+                    <h2>Youtube</h2>
                     <label>
+                        <a href='https://www.youtube.com' target='_blank'>
+                            <span class='fa fa-external-link'></span></a>
                         <?php
-                        echo "<a href='https://www.youtube.com' target='_blank'>
-                            <span class='fa fa-external-link'></span></a>";
                         echo "<a href='" . $this->baseUrl() . "/index/youtube-refresh'>
                             <span class='fa fa-refresh'></span></a>";
                         ?>
@@ -237,14 +254,16 @@ $isSignedIn = false;
                 </div>
                 <div id="youtubeBody">
                     <form id="youtube-form" action="#">
-                        <div class="col-md-10">
+                        <div class="col-md-offset-1 col-md-8">
                             <p>
-                                <input type="text" id="search" placeholder="Type something..."autocomplete="off" class="form-control" />
+                                <input type="text" id="search" placeholder="Type something..."
+                                       autocomplete="off" class="form-control" />
                             </p>
                         </div>
                         <div class="col-md-2">
                             <p>
-                                <button type="submit" value="Search" class="form-control youtube-btn btn btn-primary w100">Search</button>
+                                <button type="submit" value="Search" id="youtubeSearch"
+                                        class="form-control youtube-btn btn">Search</button>
                             </p>
                         </div>
                     </form>
@@ -252,20 +271,10 @@ $isSignedIn = false;
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
-            <div id="googleMapWidget" class="landscapeWidgets">
-                <div id="googleMapHeader">
-                    <h2>Google Map</h2>
-                    <input id="pac-input" class="controls" type="text" placeholder="Search Box">
-                </div>
-                <div id="googleMap">
-                </div>
-            </div>
-        </div>
     </div>
     <div class="row">
         <div class="col-md-3">
-            <div id="weatherWidget" class="landscapeWidgets">
+            <div id="weatherWidget" class="landscapeWidgets card-shadow">
                 <div id="weatherHeader">
                     <h2>Weather</h2>
                     <label>
@@ -284,6 +293,21 @@ $isSignedIn = false;
                         <a href="#" class="arrow next">Next</a>
                         <p class="location"></p>
                     </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div id="facebookWidget" class="landscapeWidgets card-shadow">
+                <div id="facebookHeader">
+                    <h2>Facebook</h2>
+                    <label>
+                        <?php
+                        echo "<a href='" . $this->baseUrl() . "/index/twitter-refresh'>
+                        <span class='fa fa-refresh'></span></a>";
+                        ?>
+                    </label>
+                </div>
+                <div id="facebookBody">
                 </div>
             </div>
         </div>

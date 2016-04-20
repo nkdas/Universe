@@ -1,12 +1,18 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,300,100);
 @import url(https://fonts.googleapis.com/css?family=Marck+Script);
 
+* {
+    text-shadow: none !important;
+    box-sizing: border-box !important;
+    -moz-box-sizing: border-box !important;
+    -webkit-box-sizing: border-box !important;
+    -o-box-sizing: border-box !important;
+}
+
 body {
     font-family: 'Roboto', sans-serif !important;
     font-weight: 300 !important;
-    background-image: url("../images/bg3.jpg");
-    /*background: -webkit-linear-gradient(left, #EECDA3, #EF629F);*/
-
+    background: url('../themes/tulip4.jpg') no-repeat;
     background-attachment: fixed;
     background-size: 100% 100%;
 }
@@ -17,70 +23,14 @@ h1 {
     color: #FFF;
 }
 
-.forms {
-    border-radius: 1px !important;
-    background-color: #FFF;
-    padding: 10px;
-
+.card-shadow, #searchBox {
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19) !important;
     -moz-box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19) !important;
     -webkit-box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19) !important;
     -o-box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19) !important;
 }
 
-.forms h4 {
-    color: #aaa !important;
-}
-
-input {
-    border-radius: 0px !important;
-    border: 0px !important;
-    background-color: rgba(0,0,0,0) !important;
-    border-bottom: 1px solid #eee !important;
-    -webkit-box-shadow: none !important;
-    -moz-box-shadow: none !important;
-    box-shadow: none !important;
-    color: #888 !important;
-}
-
-input:focus {
-    border-bottom: 1px solid #00BBFF !important;
-
-    -webkit-transition: all 0.15s ease-in-out;
-    -moz-transition: all 0.15s ease-in-out;
-    -o-transition: all 0.15s ease-in-out;
-    transition: all 0.15s ease-in-out;
-}
-
-#signInButton, #signUpButton {
-    background-color: #00BBFF !important;
-    border: 0px !important;
-    color: #fff !important;
-}
-/*.abcRioButton .abcRioButtonContentWrapper {
-    width:60px;
-    height:36px;
-}*/
-.img-circle {
-    height: 42px;
-    width: 42px;
-}
-#GName {
-   font-size: 16px;
-    font-weight: bold;
-    /*text-align: center;*/
-    margin: 10px 0 0;
-    min-height: 1em;
-}
-#authorize-button {
-    background: url("../image/gmail.jpg") no-repeat !important;
-    /*background-size: 100% 100%;*/
-    /*height: 10cm;
-    width: 10cm;*/
-}
-#compose {
-    padding-left: 150%;
-}
+/* Content -------------------- */
 #wrapper {
     padding-left: 50px;
     -webkit-transition: all 0.5s ease;
@@ -119,7 +69,7 @@ input:focus {
     margin-right: -250px;
 }
 
-/* Sidebar Styles */
+/* Sidebar -------------------- */
 .sidebar-nav {
     position: absolute;
     top: 0;
@@ -161,112 +111,179 @@ input:focus {
     width: 300px;
     padding: 10px;
 }
+
+.inner-tab-content {
+    padding: 0px !important;
+    width: 280px !important;
+}
+
+.nav-tabs {
+    border-bottom: 0px !important;
+}
+
+.nav-tabs a {
+    color: #FFF !important;
+}
+
+.nav-tabs .active {
+    border-radius: 0px !important;
+    background-color: #FFF !important;
+}
+
+.nav-tabs li:hover, .nav-tabs a:hover {
+    border-radius: 0px !important;
+    border-bottom: 0px !important;
+    color: #00BBFF !important;
+}
+
+.nav-tabs .active a {
+    border: 1px solid #FFF !important;
+    color: #333 !important;
+}
+
+/* Side bar Forms -------------------- */
+.forms {
+    border-radius: 1px !important;
+    background-color: #FFF;
+    padding: 10px;
+}
+
+.forms h4 {
+    color: #AAA !important;
+}
+
+input {
+    border-radius: 0px !important;
+    border: 0px !important;
+    background-color: rgba(0,0,0,0) !important;
+    border-bottom: 1px solid #eee !important;
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    box-shadow: none !important;
+    color: #888 !important;
+}
+
+input:focus {
+    border-bottom: 1px solid #00BBFF !important;
+    -webkit-transition: all 0.15s ease-in-out;
+    -moz-transition: all 0.15s ease-in-out;
+    -o-transition: all 0.15s ease-in-out;
+    transition: all 0.15s ease-in-out;
+}
+
+#signInButton, #signUpButton {
+    background-color: #00BBFF !important;
+    border: 0px !important;
+    color: #fff !important;
+    text-shadow: none !important;
+}
+
+/* GMail widget -------------------- */
+.img-circle {
+    height: 42px;
+    width: 42px;
+}
+
+#GName {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 10px 0 0;
+    min-height: 1em;
+}
+
+#authorize-button {
+    background-color: #db4437 !important;
+    border-radius: 0px !important;
+    border: 1px solid #FFF!important;
+    margin-top: -10px !important;
+    color: #FFF !important;
+}
+
+#authorize-button:hover {
+    background-color: #FFF !important;
+    color: #db4437 !important;
+}
+
+#compose-button {
+    background-color: #db4437 !important;
+    border-radius: 0px !important;
+    border: 1px solid #FFF!important;
+    margin-top: -10px !important;
+    color: #FFF !important;
+}
+
+#compose-button:hover {
+    background-color: #FFF !important;
+    color: #db4437 !important;
+}
+
+#compose {
+    padding-left: 150%;
+}
+
 iframe {
     width: 100%;
     border: 0;
-    min-height: 80%;
+    min-height: 100%;
     height: 300px;
     display: flex;
 }
-.gmail{
-
-        width: 100%;
-        height: 100%;
+.gmail {
+    width: 100%;
+    height: 100%;
 }
-.mail-table{
-    width: auto;
+.mail-table {
+    width: 100% !important;
     height: auto;
-}
-.gmail-div {
-    /*width:350px;*/
+    word-break: break-all;
 }
 
-.widgets , .landscapeWidgets {
-    height: 500px;
-    background: #fff;
+.modal-content {
+    border-radius: 1px !important;
+    height: 80% !important;
+}
+
+.modal-dialog, .modal-lg {
+    height: 100% !important;
+}
+
+.modal-body {
+    height: 80% !important;
+}
+
+.modal-body iframe {
+    height: 100% !important;
+}
+
+.modal-footer .btn {
+    background-color: #db4437 !important;
+    border-radius: 1px !important;
+    border: 1px solid #db4437!important;
+    margin-top: -10px !important;
+    color: #FFF !important;
+}
+
+.modal-footer .btn:hover {
+    background-color: #FFF !important;
+    color: #db4437 !important;
+}
+
+@media screen and (max-width: 1000px) {
+    .table-responsive>.table>tbody>tr>td, .table-responsive>.table>tbody>tr>th, .table-responsive>.table>tfoot>tr>td, .table-responsive>.table>tfoot>tr>th, .table-responsive>.table>thead>tr>td, .table-responsive>.table>thead>tr>th {
+        white-space:  normal !important;
+        word-break: break-all !important;
+    }
+}
+
+/* Widgets common -------------------- */
+.widgets, .landscapeWidgets {
+    height: 400px;
+    background: #FFF;
     margin: 0px;
-
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19) !important;
-    -moz-box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19) !important;
-    -webkit-box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19) !important;
-    -o-box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19) !important;
 }
 
 .landscapeWidgets {
     height: 400px !important;
-}
-
-#searchBox {
-    border-radius: 1px !important;
-    border: 0px solid #fff !important;
-    background-color: #FFF !important;
-    display: inline !important;
-    margin-right: 2px !important;
-
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19) !important;
-    -moz-box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19) !important;
-    -webkit-box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19) !important;
-    -o-box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19) !important;
-}
-
-.searchButtons {
-    border-radius: 1px !important;
-    width: 40px !important;
-    height: 40px !important;
-    background-size: 100% 100% !important;
-    border: 0px !important;
-    margin-right: 5px !important;
-
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19) !important;
-    -moz-box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19) !important;
-    -webkit-box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19) !important;
-    -o-box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19) !important;
-}
-
-#googleButton {
-    background-image: url("../images/googleLogo.png");
-}
-
-#bingButton {
-    background-image: url("../images/bingLogo.png");
-}
-
-#yahooButton {
-    background-image: url("../images/yahooLogo.png");
-}
-
-#wikipediaButton {
-    background-image: url("../images/wikipediaLogo.png");
-}
-
-#twitterHeader {
-    background-color: #1da1f2;
-    height: 50px !important;
-}
-
-#gMailHeader {
-    background-color: #db4437;
-    height: 50px !important;
-}
-
-#facebookHeader {
-    background-color: #3B5998;
-    height: 50px !important;
-}
-#youtubeHeader {
-    margin-top: 5%;
-    background: #cc181e;
-    height: 50px !important;
-}
-
-#googleMapHeader {
-    background-color: #22A565;
-    height: 50px !important;
-}
-
-#weatherHeader {
-    background-color: #034484;
-    height: 50px !important;
 }
 
 .widgets h2, .landscapeWidgets h2 {
@@ -292,14 +309,92 @@ iframe {
     font-size: 30px !important;
 }
 
+.fa-external-link {
+    padding-right: 5%;
+}
+
+.widget-icon{
+    padding: 1%;
+}
+
+.col-md-4, .col-md-6, .col-md-3 {
+    padding-bottom: 30px !important;
+}
+
+/* Widget headers -------------------- */
+#twitterHeader {
+    background-color: #1da1f2;
+    height: 50px !important;
+}
+
+#gMailHeader {
+    background-color: #db4437;
+    height: 50px !important;
+}
+
+#facebookHeader {
+    background-color: #3B5998;
+    height: 50px !important;
+}
+#youtubeHeader {
+    background: #cc181e;
+    height: 50px !important;
+}
+
+#googleMapHeader {
+    background-color: #22A565;
+    height: 50px !important;
+}
+
+#weatherHeader {
+    background-color: #034484;
+    height: 50px !important;
+}
+
+/* Widget body -------------------- */
 #twitterBody , #gMailBody, #facebookBody, #youtubeBody {
-    height: 440px !important;
+    height: 340px !important;
     padding-left: 5px;
     padding-right: 5px;
-    overflow-y: scroll !important;
+    overflow-y: auto !important;
     width: 100% !important;
 }
 
+/* Web search -------------------- */
+#searchBox {
+    border-radius: 1px !important;
+    border: 0px solid #FFF !important;
+    background-color: #FFF !important;
+    display: inline !important;
+    margin-right: 2px !important;
+}
+
+.searchButtons {
+    border-radius: 1px !important;
+    width: 40px !important;
+    height: 40px !important;
+    background-size: 100% 100% !important;
+    border: 0px !important;
+    margin-right: 5px !important;
+}
+
+#googleButton {
+    background-image: url("../images/googleLogo.png");
+}
+
+#bingButton {
+    background-image: url("../images/bingLogo.png");
+}
+
+#yahooButton {
+    background-image: url("../images/yahooLogo.png");
+}
+
+#wikipediaButton {
+    background-image: url("../images/wikipediaLogo.png");
+}
+
+/* Twitter widget -------------------- */
 #twitterBody h3 {
     color: #1da1f2;
 }
@@ -309,14 +404,10 @@ iframe {
     font-size: 24px !important;
 }
 
+/* GoogleMap widget -------------------- */
 #googleMap {
     height: 350px !important;
 }
-
-.col-md-4, .col-md-6, .col-md-3 {
-    padding-bottom: 30px !important;
-}
-
 
 #pac-input {
     background-color: #fff !important;
@@ -326,7 +417,7 @@ iframe {
     margin-left: 12px;
     padding: 0 11px 0 13px;
     text-overflow: ellipsis;
-    width: 300px;
+    width: auto;
 }
 
 #pac-input:focus {
@@ -348,6 +439,7 @@ iframe {
     font-size: 13px;
     font-weight: 300;
 }
+
 #target {
     width: 345px;
 }
@@ -363,6 +455,7 @@ iframe {
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
 }
 
+/* Weather widget -------------------- */
 #weather{
     position:relative;
     overflow:hidden;
@@ -500,17 +593,133 @@ p.location b{
     color:#FFF;
 }
 
-@media screen and (max-width: 1000px) {
-    .table-responsive>.table>tbody>tr>td, .table-responsive>.table>tbody>tr>th, .table-responsive>.table>tfoot>tr>td, .table-responsive>.table>tfoot>tr>th, .table-responsive>.table>thead>tr>td, .table-responsive>.table>thead>tr>th {
-        white-space:  normal !important;
-        word-break: break-all !important;
-    }
+/* Youtube widget -------------------- */
+#youtubeSearch {
+    background-color: #cc181e !important;
+    border-radius: 1px !important;
+    border: 1px solid #FFF!important;
+
+    color: #FFF !important;
+    width:auto !important;
 }
 
-.fa-external-link {
-    padding-right: 5%;
-}
-.widget-icon{
-    padding: 1%;
+#youtubeSearch:hover {
+    background-color: #FFF !important;
+    color: #cc181e !important;
+    border: 1px solid #cc181e !important;
 }
 
+#search:focus {
+    border-bottom-color: #cc181e !important;
+}
+
+#youtube-form {
+    padding-top: 20px !important;
+}
+
+.item {
+    margin-bottom: 25px;
+    width: 45%;
+    height: 50%;
+    float: left;
+    margin: 2%;
+}
+
+iframe {
+    width: 100%;
+    border: 0;
+    min-height: 80%;
+    height: 50% !important;
+    display: flex;
+}
+
+.btn-primary {
+    background: #952b2b;
+    border-color: #957575;
+}
+
+.btn-primary:hover, .btn-primary:active, .btn-primary:focus {
+    background: #782b2b;
+    border-color: #952b2b;
+}
+
+/* Alert box */
+.alert-danger {
+    border-radius: 1px !important;
+    background-color: #dc143c !important;
+    background-image: none !important;
+    border: 1px solid #dc143c !important;
+    color: #000 !important;
+    text-shadow: none !important;
+}
+
+/* Theme showcase */
+.theme-showcase {
+    width: 270px;
+    height: 150px;
+    display: inline-block;
+    margin: 2px;
+    border: 2px solid #ccc;
+}
+
+.theme-modal-body {
+    overflow: auto;
+}
+
+#tulip1 {
+    background: url('../themes/tulip1.jpg') no-repeat;
+    background-size: 100% 100%;
+}
+
+#tulip2 {
+    background: url('../themes/tulip2.jpg') no-repeat;
+    background-size: 100% 100%;
+}
+
+#tulip3 {
+    background: url('../themes/tulip3.jpg') no-repeat;
+    background-size: 100% 100%;
+}
+
+#tulip4 {
+    background: url('../themes/tulip4.jpg') no-repeat;
+    background-size: 100% 100%;
+}
+
+.abcRioButtonContentWrapper, .abcRioButtonLightBlue, .g-signin2 {
+    width: 35px !important;
+    height: 35px !important;
+    display: inline !important;
+}
+
+.abcRioButtonContentWrapper span {
+    display: none !important;
+}
+
+.abcRioButtonIcon {
+    border: 1px solid #ddd;
+}
+
+.abcRioButtonIcon div {
+    height:24px !important;
+    width: 24px !important;
+}
+
+.abcRioButtonIcon svg {
+    height:24px !important;
+    width: 24px !important;
+}
+
+#facebookButton {
+    font-size: 30px !important;
+    display: inline !important;
+    color: #3B5998 !important;
+    padding-top: 2px !important;
+    padding-bottom: 3px !important;
+    padding-left: 7px !important;
+    padding-right: 7px !important;
+    border: 1px solid #ddd;
+    margin-left: 5px !important;
+    cursor: pointer;
+    cursor: hand;
+}
