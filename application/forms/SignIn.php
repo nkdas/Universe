@@ -33,7 +33,7 @@ class Application_Form_SignIn extends Zend_Form
                 false,
                 array(
                     'messages' => array(
-                        'emailAddressInvalidFormat' => 'The Email Id is invalid'
+                        'emailAddressInvalidFormat' => 'Email Id is invalid'
                     )
                 )
             );

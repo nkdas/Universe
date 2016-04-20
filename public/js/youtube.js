@@ -72,7 +72,7 @@ $(function() {
           var results = response.result;
           $("#youtube-results").html("");
           $.each(results.items, function(index, item) {
-          var data = '<div class="item"><iframe class="video w100"  src="//www.youtube.com/embed/{{videoid}}" frameborder="0" allowfullscreen></iframe></div>';
+          var data = '<div class="item"><iframe class="video w100"  src="http://www.youtube.com/embed/{{videoid}}" frameborder="0" allowfullscreen></iframe></div>';
                 $("#youtube-results").append(tplawesome(data, [{"title":item.snippet.title, "videoid":item.id.videoId}]));
 
           });

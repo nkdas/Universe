@@ -1,101 +1,112 @@
-/**
- *@function: onSignIn()
- *@param: object
- *@purpose: Google server will call 
- *          this function when ever client click on the google signIn button
- *@return void
-*/
-//For SignIn
+// For Sign in with Google
 function onSignIn(googleUser) {
-  var profile = googleUser.getBasicProfile();
- 
-  var name = profile.getName();
- 
-  var img = '<br/><img src=' + profile.getImageUrl() + ' class="img-circle">';
-  $('div#GName').text(name);
-  $('div#GImage').html(img);
-  var signOut= '<a href="http://universe.com" onclick="signOut();">Sign out</a>'
-  $('.g-signin2').html(signOut);
+    var profile = googleUser.getBasicProfile();
+    var name = profile.getName();
 
-  /*console.log('Email: ' + profile.getEmail());*/
+    $.ajax({
+        type: "POST",
+        dataType: "json",
+        url: "http://universe.com/index/set-google-session",
+        data: "name=" + name + "&sender=google&email=" + profile.getEmail(),
+        success: function(data) {
+            if ('ok' == data.status) {
+                document.getElementById('authLi').innerHTML
+                    = "<a href='http://universe.com/index/sign-out' onclick='signOut();'>"
+                    + "<span class='fa fa-sign-out'></span></a>";
+            }
+            else if ('duplicate' == data.status) {
+                document.getElementById('message').innerHTML
+                    = "<div class='notification alert alert-danger card-shadow'>"
+                    + "<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>"
+                    + "Seems like you have already used this email to sign in with Facebook."
+                    + "</div>";
+                signOut();
+            } else {
+                document.getElementById('message').innerHTML
+                    = "<div class='notification alert alert-danger card-shadow'>"
+                    + "<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>"
+                    + "Sorry! Unable to process your request."
+                    + "</div>";
+                signOut();
+            }
+        },
+        error: function( jqXHR, textStatus, errorThrown) {
+            console.log(errorThrown);
+        }
+    });
 }
 
-/**
- *@function: signOut()
- *@purpose: Google server will call 
- *          this function when ever client click on the google signOut button
-*/
+// For Google sign out
 function signOut() {
-  var auth2 = gapi.auth2.getAuthInstance();
-  auth2.signOut().then(function () {
-    console.log('User signed out.');
-  });
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+        console.log('User signed out.');
+    });
 }
 
-/**
- *Gmail Access
-*/
+// For Gmail widget
 var clientId = '955613673981-fpdqjatkpft248qod3ddnin03tmcp9o1.apps.googleusercontent.com';
 var apiKey = 'AIzaSyAQhrYP5vb0OonmKkhMOQql24zHnjQxrjQ';
 var scopes =
-  'https://www.googleapis.com/auth/gmail.readonly '+
-  'https://www.googleapis.com/auth/gmail.send';
+   'https://www.googleapis.com/auth/gmail.readonly '+
+   'https://www.googleapis.com/auth/gmail.send';
+
 function handleClientLoad() {
-  gapi.client.setApiKey(apiKey);
-  window.setTimeout(checkAuth, 1);
+    gapi.client.setApiKey(apiKey);
+    window.setTimeout(checkAuth, 1);
 }
 function checkAuth() {
-  gapi.auth.authorize({
-    client_id: clientId,
-    scope: scopes,
-    immediate: true
-  }, handleAuthResult);
+    gapi.auth.authorize({
+        client_id: clientId,
+        scope: scopes,
+        immediate: true
+    }, handleAuthResult);
 }
 function handleAuthClick() {
-  gapi.auth.authorize({
-    client_id: clientId,
-    scope: scopes,
-    immediate: false
-  }, handleAuthResult);
-  return false;
+    gapi.auth.authorize({
+        client_id: clientId,
+        scope: scopes,
+        immediate: false
+    }, handleAuthResult);
+    return false;
 }
 function handleAuthResult(authResult) {
-  if(authResult && !authResult.error) {
-    loadGmailApi();
-    $('#authorize-button').remove();
-    $('.table-inbox').removeClass("hidden");
-    $('#compose-button').removeClass("hidden");
-  } else {
-    $('#authorize-button').removeClass("hidden");
-    $('#authorize-button').on('click', function(){
-      handleAuthClick();
-    });
-  }
+    if(authResult && !authResult.error) {
+        loadGmailApi();
+        $('#authorize-button').remove();
+        $('.table-inbox').removeClass("hidden");
+        $('#compose-button').removeClass("hidden");
+    } else {
+        $('#authorize-button').removeClass("hidden");
+        $('#authorize-button').on('click', function(){
+            handleAuthClick();
+        });
+    }
 }
 function loadGmailApi() {
-  gapi.client.load('gmail', 'v1', displayInbox);
+    gapi.client.load('gmail', 'v1', displayInbox);
 }
 function displayInbox() {
-  var request = gapi.client.gmail.users.messages.list({
-    'userId': 'me',
-    'labelIds': 'INBOX',
-    'maxResults': 10
-  });
-  request.execute(function(response) {
-    $.each(response.messages, function() {
-      var messageRequest = gapi.client.gmail.users.messages.get({
+    var request = gapi.client.gmail.users.messages.list({
         'userId': 'me',
-        'id': this.id
-      });
-      messageRequest.execute(appendMessageRow);
+        'labelIds': 'INBOX',
+        'maxResults': 25
     });
-  });
+    request.execute(function(response) {
+        $.each(response.messages, function() {
+            var messageRequest = gapi.client.gmail.users.messages.get({
+                'userId': 'me',
+                'id': this.id
+            });
+            messageRequest.execute(appendMessageRow);
+        });
+    });
 }
 function appendMessageRow(message) {
-  $('.table-inbox tbody').append(
-    '<tr>\
-      <td>'+getHeader(message.payload.headers, 'From')+'</td>\
-      <td>\
+    $('.table-inbox tbody').append(
+        '<tr>\
+        <td>'+getHeader(message.payload.headers, 'From')+'</td>\
+        <td>\
         <a href="#message-modal-' + message.id +
           '" data-toggle="modal" id="message-link-' + message.id+'">' +
           getHeader(message.payload.headers, 'Subject') +
@@ -128,8 +139,8 @@ function appendMessageRow(message) {
             </iframe>\
           </div>\
           <div class="modal-footer">\
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>\
-            <button type="button" class="btn btn-primary reply-button" data-dismiss="modal" data-toggle="modal" data-target="#reply-modal"\
+            <button type="button" class="btn" data-dismiss="modal">Close</button>\
+            <button type="button" class="btn reply-button" data-dismiss="modal" data-toggle="modal" data-target="#reply-modal"\
             onclick="fillInReply(\
               \''+reply_to+'\', \
               \''+reply_subject+'\', \

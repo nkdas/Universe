@@ -7,36 +7,43 @@ echo $this->doctype('HTML5') . "\n"; ?>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="google-signin-client_id" content="955613673981-fpdqjatkpft248qod3ddnin03tmcp9o1.apps.googleusercontent.com">
+
     <?php echo $this->headMeta() . "\n"; ?>
     <?php echo $this->headTitle() . "\n"; ?>
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-
-
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
-    <?php echo $this->headLink()->prependStylesheet($this->baseUrl().'/css/style.css') . "\n"; ?>
-    <!--youtube-->
-    <?php echo $this->headLink()->prependStylesheet($this->baseUrl().'/css/youtubeStyle.css') . "\n"; ?>
+
+    <?php
+    $this->headLink()->prependStylesheet($this->baseUrl().'/css/style.css');
+    echo $this->headLink();
+    ?>
 </head>
 <body onload="defaultFeed()">
 <div id="content" class="container-fluid">
-    <h1><?php echo $this->escape($this->title); ?></h1>
-    <?php echo $this->layout()->content . "\n"; ?>
+    <?php echo '<br>' . $this->layout()->content . "\n"; ?>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.0.0/moment.min.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD2_nACBJzzxF6AXHzXxcJvYYDTcORZZiA&callback=initMap&libraries=places" async defer></script>
-<?php echo $this->headScript()->prependFile($this->baseUrl().'/js/weather.js') ?>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.0.0/moment.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <script src="https://apis.google.com/js/platform.js" async defer></script>
-<?php echo $this->headScript()->prependFile($this->baseUrl().'/js/universe.js') ?>
+
+<?php
+$this->headScript()->prependFile($this->baseUrl().'/js/universe.js');
+$this->headScript()->prependFile($this->baseUrl().'/js/gmail.js');
+$this->headScript()->prependFile($this->baseUrl().'/js/youtube.js');
+$this->headScript()->prependFile($this->baseUrl().'/js/weather.js');
+$this->headScript()->prependFile($this->baseUrl().'/js/facebookLogin.js');
+echo $this->headScript();
+?>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD2_nACBJzzxF6AXHzXxcJvYYDTcORZZiA&callback=initMap&libraries=places" async defer></script>
 <!--Gmail-->
-<?php echo $this->headScript()->prependFile($this->baseUrl().'/js/gmail.js') ?>
 <script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
-<?php echo $this->headScript()->prependFile($this->baseUrl().'/js/facebookUniverse.js') ?>
+
 <!--youtube-->
-<?php echo $this->headScript()->prependFile($this->baseUrl().'/js/youtube.js') ?>
 <script src="https://apis.google.com/js/client.js?onload=init"></script>
 <script src="https://apis.google.com/js/client.js?onload=checkAuth"></script>
 <!--newsfeeds-->
