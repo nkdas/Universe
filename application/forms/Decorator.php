@@ -37,11 +37,10 @@ class ButtonDecorator extends Zend_Form_Decorator_Abstract
     }
 }
 
-
 class SearchButtonDecorator extends Zend_Form_Decorator_Abstract
 {
     protected $_format = '<input id="%s" name="%s" type="%s"
-        class="btn btn-primary searchButtons" value="%s"/>';
+        class="btn btn-primary searchButtons card-shadow" value="%s"/>';
 
     public function render($content)
     {
