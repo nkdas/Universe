@@ -1,7 +1,5 @@
 <?php
 
-require_once APPLICATION_PATH . '/models/Facebook/FacebookLogin.php';
-
 /**
  * @class       IndexController
  * @path        application/controllers/IndexController.php
@@ -9,33 +7,48 @@ require_once APPLICATION_PATH . '/models/Facebook/FacebookLogin.php';
  */
 class IndexController extends Zend_Controller_Action
 {
-    private $_facebook = null;
     private $_users = null;
+    private $_externalUsers = null;
     private $_twitter = null;
 
     public function init()
     {
         $this->_users = new Application_Model_DbTable_User();
+        $this->_externalUsers = new Application_Model_DbTable_ExternalUsers();
         $this->_twitter = new Application_Model_Twitter_Twitter();
-        $this->_facebook = new Application_Model_Facebook_FacebookLogin();
     }
 
     /**
      * @function    indexAction()
-     * @description This function performs the actions to be taken when index page is
-     *              loaded.
+     * @description This function performs the actions to be taken when
+     *              index page is loaded.
      *
      * @return      void
      */
     public function indexAction()
     {
-
         // Check if a user is already logged in and change
         // the sign in icon to sign out
         try {
+            $this->view->isSignedIn = false;
             if (isset($_SESSION['firstName'])){
                 $this->view->isSignedIn = true;
                 $this->view->firstName = $_SESSION['firstName'];
+                if (isset($_SESSION['loggedInWith'])) {
+                    if ('google' == $_SESSION['loggedInWith']) {
+                        $this->view->authLink = "<a href='http://universe.com/index/sign-out' onclick='signOut();'>
+                            <span class='fa fa-sign-out'></span></a>";
+                    } else {
+                        $this->view->authLink = "<a href='http://universe.com/index/sign-out' onclick='fb_Logout();'>
+                            <span class='fa fa-sign-out'></span></a>";
+                    }
+                } else {
+                    $this->view->authLink = "<a href='http://universe.com/index/sign-out'>
+                            <span class='fa fa-sign-out'></span></a>";
+                }
+            } else {
+                $this->view->authLink = "<a href='#signIn' data-toggle='tab'>
+                            <span class='menu-open fa fa-sign-in'></span></a>";
             }
         }catch(Exception $exception){
             error_log($exception->getMessage());
@@ -47,12 +60,10 @@ class IndexController extends Zend_Controller_Action
 
         // Displays the SignIn form in index view
         $signInForm = new Application_Form_SignIn();
-        $signInForm->submit->setLabel('Signin');
         $this->view->signInForm = $signInForm;
 
         // Displays the SignUp form in index view
         $signUpForm = new Application_Form_SignUp();
-        $signUpForm->submit->setLabel('Signup');
         $this->view->signUpForm = $signUpForm;
 
         if ($this->getRequest()->isPost()) {
@@ -148,7 +159,6 @@ class IndexController extends Zend_Controller_Action
         } catch (Exception $exception) {
             error_log($exception->getMessage());
         }
-
     }
 
     /**
@@ -160,10 +170,23 @@ class IndexController extends Zend_Controller_Action
      */
     public function signUp($formData)
     {
-        $users = new Application_Model_DbTable_User();
-        $status = $users->saveData($formData);
-        if ($status) {
-            $this->_redirect('index/index');
+        $status = $this->_externalUsers->checkUserExists($_POST['email']);
+        if (!($status)) {
+            $status = $this->_users->saveData($formData);
+            if ($status) {
+                $this->signIn($formData);
+            } else {
+                if (false !== strpos($status, 'Duplicate entry')) {
+                    $this->view->message = 'oops! This Email Id is already with us.<br>'
+                    . 'It seems You have already registered.<br><br>If so, Please Sign in<br><br>'
+                    . 'If not, make sure you are using the correct Email Id';
+                } else {
+                    $this->view->message = 'Sorry! Something is wrong, we are unable'
+                    . ' to process your request';
+                }
+            }
+        } else {
+            $this->view->message = 'It seems like you have already registered with ' . $status;
         }
     }
 
@@ -205,21 +228,45 @@ class IndexController extends Zend_Controller_Action
         foreach ($messageArrays as $messageArray) {
             foreach ($messageArray as $message) {
                 if ($message != '') {
-                    $messageString .= $message.'<br>';
+                    $messageString .= $message . '<br>';
                 }
             }
         }
         return $messageString;
     }
 
-    public function facebookSignInAction()
+    public function setGoogleSessionAction()
     {
-        $this->facebook->getUserDetails();
-        $this->view->userName = $_SESSION['userName'];
-    }
-
-    public function facebookRefreshAction()
-    {
-        $this->_facebook->getFacebookLogin();
+        try{
+            if (isset($_POST['name']) && isset($_POST['sender'])) {
+                if (!($this->_users->checkUserExists($_POST['email']))) {
+                    $status = $this->_externalUsers->saveData($_POST);
+                    if (true === $status) {
+                        $_SESSION['firstName'] = $_POST['name'];
+                        $_SESSION['loggedInWith'] = $_POST['sender'];
+                        $state = array('status' => 'ok');
+                        echo json_encode($state);
+                    } else if (false !== strpos($status, 'Duplicate entry')) {
+                        if (false === strpos($status, $_POST['sender'])) {
+                            $state = array('status' => 'duplicate');
+                            echo json_encode($state);
+                        } else {
+                            $_SESSION['firstName'] = $_POST['name'];
+                            $_SESSION['loggedInWith'] = $_POST['sender'];
+                            $state = array('status' => 'ok');
+                            echo json_encode($state);
+                        }
+                    } else {
+                        $state = array('status' => 'fail');
+                        echo json_encode($state);
+                    }
+                }
+            }
+        } catch (Exception $e) {
+            $state = array('status' => 'fail');
+            echo json_encode($state);
+        }
+        exit;
     }
 }
+
