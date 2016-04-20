@@ -8,6 +8,9 @@
 class Application_Model_DbTable_User extends Zend_Db_Table_Abstract
 {
 
+    // Specifies table name
+    protected $_name = 'users';
+
     /**
      * @function    saveData()
      * @description This function gets an array of form data and saves them to the database.
@@ -23,12 +26,21 @@ class Application_Model_DbTable_User extends Zend_Db_Table_Abstract
                 'password' => $formData['password'],
                 'firstName' => $formData['firstName'],
                 'lastName' => $formData['lastName'],
-                'role' => $formData['role']
             );
             $this->insert($data);
             return true;
         } catch (Exception $exception) {
+            return $exception->getMessage();
+        }
+    }
+
+    public function checkUserExists($email)
+    {
+        $row = $this->fetchRow("email = '" . $email . "'");
+        if (!$row) {
             return false;
+        } else {
+            return true;
         }
     }
 }
