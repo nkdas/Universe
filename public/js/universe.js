@@ -5,7 +5,7 @@ $(".menu-open").click(function(e) {
         $("#wrapper").toggleClass("toggled");
     }
 });
-$("#menu-close").click(function(e) {
+$(".menu-close").click(function(e) {
     e.preventDefault();
     if ("toggled" == $("#wrapper").attr("class")) {
         $("#wrapper").toggleClass("toggled");
@@ -37,7 +37,7 @@ function showPosition(position) {
     var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
 
     var marker=new google.maps.Marker({
-        position:usersLocation,
+        position:usersLocation
     });
     marker.setMap(map);
 
