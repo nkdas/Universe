@@ -10,12 +10,16 @@ class IndexController extends Zend_Controller_Action
     private $_users = null;
     private $_externalUsers = null;
     private $_twitter = null;
+    private $_facebook = null;
+    private $_settings = null;
 
     public function init()
     {
         $this->_users = new Application_Model_DbTable_User();
         $this->_externalUsers = new Application_Model_DbTable_ExternalUsers();
         $this->_twitter = new Application_Model_Twitter_Twitter();
+        $this->_facebook = new Application_Model_Facebook_Facebook();
+        $this->_settings = new Application_Model_DbTable_Settings();
     }
 
     /**
@@ -179,6 +183,7 @@ class IndexController extends Zend_Controller_Action
         if (!($status)) {
             $status = $this->_users->saveData($formData);
             if ($status) {
+                $this->_settings->addUserData($formData['email']);
                 $this->signIn($formData);
             } else {
                 if (false !== strpos($status, 'Duplicate entry')) {
@@ -247,8 +252,10 @@ class IndexController extends Zend_Controller_Action
                 if (!($this->_users->checkUserExists($_POST['email']))) {
                     $status = $this->_externalUsers->saveData($_POST);
                     if (true === $status) {
+                        $this->_settings->addUserData($_POST['email']);
                         $_SESSION['firstName'] = $_POST['name'];
                         $_SESSION['loggedInWith'] = $_POST['sender'];
+                        $_SESSION['email'] = $_POST['email'];
                         $state = array('status' => 'ok');
                         echo json_encode($state);
                     } else if (false !== strpos($status, 'Duplicate entry')) {
@@ -256,8 +263,10 @@ class IndexController extends Zend_Controller_Action
                             $state = array('status' => 'duplicate');
                             echo json_encode($state);
                         } else {
+                            $this->_settings->addUserData($_POST['email']);
                             $_SESSION['firstName'] = $_POST['name'];
                             $_SESSION['loggedInWith'] = $_POST['sender'];
+                            $_SESSION['email'] = $_POST['email'];
                             $state = array('status' => 'ok');
                             echo json_encode($state);
                         }
@@ -271,6 +280,25 @@ class IndexController extends Zend_Controller_Action
             $state = array('status' => 'fail');
             echo json_encode($state);
         }
+        exit;
+    }
+
+    public function facebookRefreshAction()
+    {
+        $url = $this->_settings->getFacebookUrl($_SESSION['email']);
+        echo $this->_facebook->getFacebookFeed($url);
+        exit;
+    }
+
+    public function saveFacebookUrlAction()
+    {
+        $url = $_POST['facebookUrl'];
+        if ($this->_settings->saveFacebookUrl($url)) {
+            $state = array('status' => 'success');
+        } else {
+            $state = array('status' => 'fail');
+        }
+        echo json_encode($state);
         exit;
     }
 }

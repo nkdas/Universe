@@ -12,6 +12,39 @@ $(".menu-close").click(function(e) {
     }
 });
 
+$("#facebookFeedButton").click(function() {
+    $.ajax({
+        type: "POST",
+        dataType: "html",
+        url: "http://universe.com/index/facebook-refresh",
+        success: function(data) {
+            document.getElementById('facebookBody').innerHTML = data;
+        },
+        error: function( jqXHR, textStatus, errorThrown) {
+            console.log(errorThrown);
+        }
+    });
+});
+
+$("#fbFeedSave").click(function() {
+    var data = $('#facebookFeedUrl').val();
+    var regex = new RegExp('&', 'g');
+    data = data.replace(regex, '-aMp-');
+
+    $.ajax({
+        type: "POST",
+        dataType: "json",
+        url: "http://universe.com/index/save-facebook-url",
+        data: 'facebookUrl=' + data,
+        success: function(data) {
+            
+        },
+        error: function( jqXHR, textStatus, errorThrown) {
+            console.log(errorThrown);
+        }
+    });
+});
+
 // Functions for GoogleMap starts
 var x = document.getElementById("googleMap");
 

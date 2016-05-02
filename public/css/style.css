@@ -308,6 +308,9 @@ iframe {
     float: right;
     margin-right: 10px;
     margin-top:3px;
+}
+
+.widgetIcons {
     font-size: 30px !important;
 }
 
@@ -349,6 +352,11 @@ iframe {
 }
 
 #weatherHeader {
+    background-color: #034484;
+    height: 50px !important;
+}
+
+#newsHeader {
     background-color: #034484;
     height: 50px !important;
 }
@@ -693,14 +701,21 @@ iframe {
 }
 .gfg-root {
     width: 100%;
-    height: 250px !important;
+    height: 240px !important;
     position: relative;
     overflow: hidden;
     text-align: center;
-    font-family: "Arial", sans-serif;
-    font-size: 12px;
-    border: 0px solid #BCCDF0;
+    font-size: 16px;
+    border: 0px !important;
 }
+
+.gfg-title {
+    font-size: 16px !important;
+    font-weight: 300 !important;
+    background-color: #FFF !important;
+    border-bottom: 1px solid #EEE;
+}
+
 .gfg-entry {
     background-color: white;
     width: 100%;
@@ -709,19 +724,16 @@ iframe {
     overflow: hidden;
     text-align: left;
     margin-top: 3px;
-    font-size: medium;
+    font-size: 16px;
 }
 
 .landscapeWidgets a {
     color: #11aafa;
-    font-size: medium;
-    font-weight: bold;
 }
 /*Cricket*/
 p {
-    margin: 0 0 10px;
-    font: small-caption;
-    color: azure;
+    /*margin: 0 0 10px;
+    font: small-caption;*/
 }
 .scoreLink{
     color: #FFFFFF !important;
@@ -773,4 +785,52 @@ p {
     margin-left: 5px !important;
     cursor: pointer;
     cursor: hand;
+}
+
+#facebookBody p {
+    word-break: break-all;
+    font-size: 18px;
+}
+
+.selectpicker {
+    border:1px solid #EEE !important;
+    border-radius: 0px !important;
+    outline: none !important;
+    box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    -o-box-shadow: none !important;
+}
+
+.selectpicker:focus {
+    outline: none !important;
+    box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    -o-box-shadow: none !important;
+    background-color: #FFF !important;
+}
+
+.optional {
+    float: left !important;
+    font-weight: 300 !important;
+    padding-left: 10px !important;
+    font-size: 18px !important;
+}
+
+.gfg-listentry-odd {
+    background-color: #FFF !important;
+}
+
+.gfg-list {
+    border-top: 1px solid #EEE;
+}
+
+.gf-relativePublishedDate, .gf-snippet {
+    font-size: 14px !important;
+    color: #333 !important;
+}
+
+#liveRefresh {
+    height: 340px !important;
 }

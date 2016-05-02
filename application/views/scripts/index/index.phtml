@@ -37,9 +37,12 @@
                     echo $this->authLink;
                     ?>
                 </li>
-                <li><a href="#settings" data-toggle="tab"><span class="menu-open fa fa-cogs"></span></a></li>
-                <li><a href="#about" data-toggle="tab"><span class="menu-open fa fa-info-circle"></span></a></li>
-                <li><a href="#" data-toggle="tab"><span class="menu-close fa fa-close"></span></a></li>
+                <li><a href="#settings" data-toggle="tab"><span class="menu-open fa fa-cogs">
+                </span></a></li>
+                <li><a href="#about" data-toggle="tab"><span class="menu-open fa fa-info-circle">
+                </span></a></li>
+                <li><a href="#" data-toggle="tab"><span class="menu-close fa fa-close">
+                </span></a></li>
             </ul>
             <div class="tab-content">
                 <div class="tab-pane" id="signIn">
@@ -47,7 +50,6 @@
                         <li class="active"><a data-toggle="tab" href="#signInDiv">Sign in</a></li>
                         <li><a data-toggle="tab" href="#signUpDiv">Sign up</a></li>
                     </ul>
-
                     <div class="tab-content inner-tab-content">
                         <div id="signInDiv" class="tab-pane fade in active">
                             <div class="forms">
@@ -70,7 +72,10 @@
                 <div class="tab-pane" id="settings">
                     <h3>Settings</h3>
                     <button type="button" class="btn" data-toggle="modal"
-                            data-target="#themeModal">Select themes</button>
+                    data-target="#themeModal">Select themes</button>
+                    <input id="facebookFeedUrl" name="facebookFeedUrl" type="text" 
+                    class="form-control" placeholder="Facebook feed url"/>
+                    <input id="fbFeedSave" name="fbFeedSave" type="button" class="btn btn-primary" value="Save"/>
                 </div>
                 <div class="tab-pane" id="about">
                     <h3>About</h3>
@@ -112,9 +117,9 @@
                     <button id="authorize-button" class="btn hidden">Sign in</button>
                     <a href="#compose-modal" data-toggle="modal" id="compose-button"
                        class="btn hidden">Compose</a>
-                    <label>
+                    <label class="widgetIcons">
                         <a href='https://www.gmail.com' target='_blank'>
-                            <span class='fa fa-external-link'></span></a>
+                        <span class='fa fa-external-link'></span></a>
                         <?php
                             echo "<a href='" . $this->baseUrl() . "/index/gmail-refresh'>
                             <span class='fa fa-refresh'></span></a>";
@@ -212,7 +217,7 @@
                 <div id="twitterHeader">
                     <!-- <span class='fa fa-twitter widget-icon fa-2x'> -->
                     <h2>Twitter</h2>
-                    <label>
+                    <label class="widgetIcons">
                         <a href='https://twitter.com' target='_blank'>
                             <span class='fa fa-external-link'></span></a>
                     <?php
@@ -243,7 +248,7 @@
             <div id="youtubeWidget" class="landscapeWidgets card-shadow">
                 <div id="youtubeHeader">
                     <h2>Youtube</h2>
-                    <label>
+                    <label class="widgetIcons">
                         <a href='https://www.youtube.com' target='_blank'>
                             <span class='fa fa-external-link'></span></a>
                         <?php
@@ -257,14 +262,16 @@
                         <div class="col-md-offset-1 col-md-8">
                             <p>
                                 <input type="text" id="search" placeholder="Type something..."
-                                       autocomplete="off" class="form-control" />
+                                autocomplete="off" class="form-control" />
                             </p>
                         </div>
                         <div class="col-md-2">
                             <p>
-                                <button id="authorize-youtube-button" type="submit" value="Search" class="form-control youtube-btn btn btn-primary w100" onclick="handleYoutubeAuthClick(event)">Search</button>
+                                <button id="authorize-youtube-button" type="submit" value="Search" 
+                                class="form-control youtube-btn btn btn-primary w100" onclick="
+                                handleYoutubeAuthClick(event)">Search</button>
                                 <button type="submit" value="Search" id="youtubeSearch"
-                                        class="form-control youtube-btn btn">Search</button>
+                                class="form-control youtube-btn btn">Search</button>
                             </p>
                         </div>
                     </form>
@@ -275,12 +282,12 @@
     </div>
     <div class="row">
         <div class="col-md-3">
-            <div id="weatherWidget" class="landscapeWidgets card-shadow">
+            <div id="weatherWidget" class="widgets card-shadow">
                 <div id="weatherHeader">
                     <h2>Weather</h2>
-                    <label>
+                    <label class="widgetIcons">
                         <?php
-                        echo "<a href='" . $this->baseUrl() . "/index/twitter-refresh'>
+                        echo "<a href='" . $this->baseUrl() . "/index/weather-refresh'>
                         <span class='fa fa-refresh'></span></a>";
                         ?>
                     </label>
@@ -301,20 +308,21 @@
             <div id="facebookWidget" class="landscapeWidgets card-shadow">
                 <div id="facebookHeader">
                     <h2>Facebook</h2>
-                    <label>
+                    <label class="widgetIcons">
                         <?php
-                        echo "<a href='" . $this->baseUrl() . "/index/twitter-refresh'>
+                        echo "<a id='facebookFeedButton' href='#'>
                         <span class='fa fa-refresh'></span></a>";
                         ?>
                     </label>
                 </div>
                 <div id="facebookBody">
+                    <?php echo $this->facebookFeed; ?>
                 </div>
             </div>
         </div>
         <div class="col-md-3">
-            <div id="weatherWidget" class="landscapeWidgets">
-                <div id="weatherHeader">
+            <div id="newsWidget" class="widgets">
+                <div id="newsHeader">
                     <h2>News</h2>
                 </div>
                 <div id="newsBody">
@@ -334,7 +342,7 @@
                 <div id="twitterHeader">
                     <!-- <span class='fa fa-twitter widget-icon fa-2x'> -->
                     <h2>Live Cricket Score</h2>
-                    <label>
+                    <label class="widgetIcons">
                         <?php
                         echo "<a href='https://twitter.com' target='_blank'>
                                 <span class='fa fa-external-link'></span></a>";
@@ -350,7 +358,7 @@
                         $content=file_get_contents("http://cricscore-api.appspot.com/csa");
                         $array = json_decode($content,true);
                         ?>
-                        <div id='liveScore'>
+                        <div class='liveScore'>
                             <?php
                             $u=$array[1]['id'];
                             ?>
@@ -373,7 +381,8 @@
                         foreach ($rss->channel->item as $item) {
                             echo '<div class="line">';
                             //echo "<p id='allMatches'>" . $item->description . "</p>";
-                            echo "<a class='scoreLink' href =". $i .">". $item->description ."</a>";
+                            echo "<a class='scoreLink' href =". $i .">". $item->description 
+                            ."</a>";
                             echo '</div>';
                             $i++;
                         }

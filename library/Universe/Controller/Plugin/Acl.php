@@ -11,7 +11,6 @@ class Universe_Controller_Plugin_Acl extends Zend_Controller_Plugin_Abstract
         if($auth->hasIdentity()) {
             $acl = $_SESSION['acl'];
             $identity = $auth->getIdentity();
-
             try {
                 $isAllowed = $acl->isAllowed(
                     $identity->role,
@@ -24,6 +23,7 @@ class Universe_Controller_Plugin_Acl extends Zend_Controller_Plugin_Abstract
                 } else {
                     $_SESSION['userId'] = $identity->id;
                     $_SESSION['firstName'] = $identity->firstName;
+                    $_SESSION['email'] = $identity->email;
                 }
             } catch (Exception $ex) {
                 $this->endSessionAndExit();

@@ -37,6 +37,7 @@
           <dbTableFile dbTableName="User"/>
           <dbTableFile dbTableName="ExternalUsers"/>
         </dbTableDirectory>
+        <modelFile modelName="../Universe/application/models/Facebook/Facebook"/>
       </modelsDirectory>
       <modulesDirectory enabled="false"/>
       <servicesDirectory enabled="false"/>

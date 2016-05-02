@@ -14,7 +14,7 @@ class Application_Form_News extends Zend_Form
             'edition' => 'Top Stories',
             'World'=>array(
                 'edition_world' =>'World',
-                'edition_asia' =>'Asia	',
+                'edition_asia' =>'Asia',
                 'edition_americas'=>'Americas',
                 ),
             'Sports'=>array(
@@ -40,6 +40,7 @@ class Application_Form_News extends Zend_Form
         $gender->setMultiOptions($multipleFeeds)
             ->setAttrib('class', 'form-control form-group selectpicker')
             ->setAttrib('id', 'searchFeed')
+            ->setLabel('Select a category')
             ->setAttrib("onclick", "feed();");
 
         $this->addElement($gender);
