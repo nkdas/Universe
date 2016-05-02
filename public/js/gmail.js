@@ -1,8 +1,19 @@
 // For Sign in with Google
+$('.g-signin2').click(function(){
+    //location.reload();
+});
+
 function onSignIn(googleUser) {
     var profile = googleUser.getBasicProfile();
     var name = profile.getName();
-
+    $('#twitterNotSignedIn').hide();
+    $('#facebookNotSignedIn').hide();
+    $('#gmailNotSignedIn').hide();
+    $('#authorize-button').removeClass("hidden");
+    $('#authorize-button').on('click', function(){
+        handleAuthClick();
+    });
+    $('#authorize-button').show();
     $.ajax({
         type: "POST",
         dataType: "json",

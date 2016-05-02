@@ -71,7 +71,6 @@ class IndexController extends Zend_Controller_Action
         $this->view->signUpForm = $signUpForm;
         // Displays the news feeds
         $newsForm = new Application_Form_News();
-//        $newsForm->submit->setLabel('NewsFeeds');
         $this->view->newsForm = $newsForm;
 
 
@@ -160,7 +159,7 @@ class IndexController extends Zend_Controller_Action
 
             if($result->isValid()) {
                 $auth->getStorage()->write($authAdapter->getResultRowObject(null, 'password'));
-                $this->_redirect('index/index');
+                $this->_redirect('index');
             } else {
                 $this->view->message = "Invalid email or password. Please try again.";
             }
@@ -212,7 +211,7 @@ class IndexController extends Zend_Controller_Action
         $storage = new Zend_Auth_Storage_Session();
         $storage->clear();
         $redirector = Zend_Controller_Action_HelperBroker::getStaticHelper('Redirector');
-        $redirector->gotoUrlAndExit('index/index');
+        $redirector->gotoUrlAndExit('index');
     }
 
     /**

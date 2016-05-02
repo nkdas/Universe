@@ -193,7 +193,7 @@ input:focus {
     min-height: 1em;
 }
 
-#authorize-button {
+#authorize-button, #authorize-youtube-button {
     background-color: #db4437 !important;
     border-radius: 0px !important;
     border: 1px solid #FFF!important;
@@ -204,6 +204,15 @@ input:focus {
 #authorize-button:hover {
     background-color: #FFF !important;
     color: #db4437 !important;
+}
+
+#authorize-youtube-button {
+    background-color: #cc181e !important;
+}
+
+#authorize-youtube-button:hover {
+    background-color: #FFF !important;
+    color: #cc181e !important;
 }
 
 #compose-button {
@@ -346,6 +355,11 @@ iframe {
     height: 50px !important;
 }
 
+#cricketHeader {
+    background-color: #3B5998;
+    height: 50px !important;
+}
+
 #googleMapHeader {
     background-color: #22A565;
     height: 50px !important;
@@ -362,8 +376,8 @@ iframe {
 }
 
 /* Widget body -------------------- */
-#twitterBody , #gMailBody, #facebookBody, #youtubeBody {
-    height: 340px !important;
+#twitterBody , #gMailBody, #facebookBody, #youtubeBody, #cricketBody {
+    height: 350px !important;
     padding-left: 5px;
     padding-right: 5px;
     overflow-y: auto !important;
@@ -833,4 +847,29 @@ p {
 
 #liveRefresh {
     height: 340px !important;
+}
+
+#twitterNotSignedIn, #gmailNotSignedIn, #facebookNotSignedIn {
+    height: 350px !important;
+    margin-left: -5px !important;
+    margin-right: -5px !important;
+    color: #FFF !important;
+    font-size: 24px !important;
+    padding: 10px !important;
+}
+
+#twitterNotSignedIn {
+    background-color: #1da1f2;
+}
+
+#gmailNotSignedIn {
+    background-color: #db4437;
+}
+
+#facebookNotSignedIn {
+    background-color: #3B5998;
+}
+
+#twitterNotSignedIn span, #gmailNotSignedIn span, #facebookNotSignedIn span{
+    font-size: 72px !important;
 }

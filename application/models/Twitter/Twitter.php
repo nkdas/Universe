@@ -38,7 +38,7 @@ class Application_Model_Twitter_Twitter
 
         $requestToken = $connection->oauth(
             'oauth/request_token',
-            array('oauth_callback' => 'http://universe.com/index/index')
+            array('oauth_callback' => 'http://universe.com/index')
         );
 
         // Save token_secret and oauth_token in the cookies to be used later

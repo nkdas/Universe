@@ -1,11 +1,12 @@
+<!-- Modal to show themes -->
 <div class="row">
     <div class="col-md-12">
         <div id="themeModal" class="modal fade container-fluid" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;
-                        </button>
+                        <button type="button" class="close" data-dismiss="modal">
+                            &times;</button>
                         <h4 class="modal-title">Themes</h4>
                     </div>
                     <div class="modal-body theme-modal-body">
@@ -20,15 +21,19 @@
         </div>
     </div>
 </div>
+
 <div id="wrapper">
+    <!-- Div to show error messages -->
     <div id="message">
     <?php if(isset($this->message)) :?>
         <div class="notification alert alert-danger card-shadow">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">
+                &times;</a>
             <?php echo $this->message;?>
         </div>
     <?php endif;?>
     </div>
+
     <div id="sidebar-wrapper">
         <div class="sidebar-nav nav" id="sidebar-nav">
             <ul id="sidebar-icons">
@@ -37,19 +42,23 @@
                     echo $this->authLink;
                     ?>
                 </li>
-                <li><a href="#settings" data-toggle="tab"><span class="menu-open fa fa-cogs">
-                </span></a></li>
-                <li><a href="#about" data-toggle="tab"><span class="menu-open fa fa-info-circle">
-                </span></a></li>
-                <li><a href="#" data-toggle="tab"><span class="menu-close fa fa-close">
-                </span></a></li>
+                <li><a href="#settings" data-toggle="tab">
+                    <span class="menu-open fa fa-cogs"></span></a></li>
+                <li><a href="#about" data-toggle="tab">
+                    <span class="menu-open fa fa-info-circle"></span></a></li>
+                <li><a href="#" data-toggle="tab">
+                    <span class="menu-close fa fa-close"></span></a></li>
             </ul>
             <div class="tab-content">
                 <div class="tab-pane" id="signIn">
+                    <!-- Nav tabs -->
                     <ul class="nav nav-tabs">
-                        <li class="active"><a data-toggle="tab" href="#signInDiv">Sign in</a></li>
+                        <li class="active"><a data-toggle="tab" href="#signInDiv">
+                            Sign in</a></li>
                         <li><a data-toggle="tab" href="#signUpDiv">Sign up</a></li>
                     </ul>
+
+                    <!-- Tab contents -->
                     <div class="tab-content inner-tab-content">
                         <div id="signInDiv" class="tab-pane fade in active">
                             <div class="forms">
@@ -58,10 +67,14 @@
                                 ?>
                                 <h4>Don't have an account?<br>Sign up</h4>
                                 <h4>Or Sign in with</h4>
-                                <div id="facebookButton" class="menu-close" onclick="fb_login();"><span class="fa fa-facebook-official"></div>
-                                <div class="g-signin2 menu-close" data-onsuccess="onSignIn"></div>
+                                <div id="facebookButton" class="menu-close"
+                                    onclick="fb_login();">
+                                    <span class="fa fa-facebook-official"></div>
+                                <div class="g-signin2 menu-close"
+                                    data-onsuccess="onSignIn"></div>
                             </div>
                         </div>
+
                         <div id="signUpDiv" class="tab-pane fade">
                             <div class="forms">
                                 <?php echo $this->signUpForm; ?>
@@ -69,29 +82,34 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Settings -->
                 <div class="tab-pane" id="settings">
                     <h3>Settings</h3>
                     <button type="button" class="btn" data-toggle="modal"
                     data-target="#themeModal">Select themes</button>
                     <input id="facebookFeedUrl" name="facebookFeedUrl" type="text" 
                     class="form-control" placeholder="Facebook feed url"/>
-                    <input id="fbFeedSave" name="fbFeedSave" type="button" class="btn btn-primary" value="Save"/>
+                    <input id="fbFeedSave" name="fbFeedSave" type="button"
+                    class="btn btn-primary" value="Save"/>
                 </div>
+
                 <div class="tab-pane" id="about">
                     <h3>About</h3>
                     <p>
-                        Universe is a Web Portal application. Designed to get your Mails, News,
-                        Social Media, Weather Reporting, Maps and more.<br>All in one place.
+                        Universe is a Web Portal application. Designed to get
+                        your Mails, News, Social Media, Weather Reporting, Maps
+                        and more.<br>All in one place.
                     </p>
                     <h3>Privacy policy</h3>
                     <p>
-                        We here at Universe.com respect your privacy. Your privacy is
-                        important to us and we are always commited to safeguarding it.<br>
-                        Universe.com does not collect any personal information about you
-                        without your knowledge.<br>
-                        When you provide your email Id and other personal information,
-                        we never share it with anyone. We only use it to provide you a better
-                        experience.
+                        We here at Universe.com respect your privacy. Your
+                        privacy is important to us and we are always commited to
+                        safeguarding it.<br>Universe.com does not collect any
+                        personal information about you without your knowledge.
+                        <br>When you provide your email Id and other personal
+                        information, we never share it with anyone. We only use
+                        it to provide you a better experience.
                     </p>
                     <h3>Universe.com 2016</h3>
                 </div>
@@ -111,43 +129,60 @@
     <!-- Widgets -->
     <div class="row">
         <div class="col-md-8">
+            <!-- Gmail widget -->
             <div id="gMailWidget" class="widgets card-shadow">
                 <div id="gMailHeader">
                     <h2>GMail</h2>
-                    <button id="authorize-button" class="btn hidden">Sign in</button>
-                    <a href="#compose-modal" data-toggle="modal" id="compose-button"
-                       class="btn hidden">Compose</a>
+                    <button id='authorize-button' class='btn hidden'>
+                        Authorize</button>
+                    <?php
+                    if (true === $this->isSignedIn) {
+
+                        echo "
+
+                            <a href='#compose-modal' data-toggle='modal'
+                            id='compose-button' class='btn hidden'>Compose</a>
+                        ";
+                    }
+                    ?>
                     <label class="widgetIcons">
                         <a href='https://www.gmail.com' target='_blank'>
-                        <span class='fa fa-external-link'></span></a>
-                        <?php
-                            echo "<a href='" . $this->baseUrl() . "/index/gmail-refresh'>
-                            <span class='fa fa-refresh'></span></a>";
-                        ?>
+                            <span class='fa fa-external-link'></span></a>
                     </label>
                 </div>
                 <div id="gMailBody">
-                    <div class='gmail-div'>
-                        <div class="mail-table table-responsive">
-                            <table class="table-hover table table-inbox hidden">
+                    <?php
+                    if (false === $this->isSignedIn) {
+                        echo "<div id='gmailNotSignedIn'>
+                            <p>Please SignIn to Universe to use this widget!</p>
+                            <span class='fa fa-envelope'></span></div>";
+                    } else {
+                        echo "
+                        <div class='gmail-div'>
+                        <div class='mail-table table-responsive'>
+                            <table class='table-hover table table-inbox hidden'>
                                 <thead>
                                 <tr>
-                                    <th>From</th>
-                                    <th>Subject</th>
-                                    <th>Date/Time</th>
+                                    <th> From</th>
+                                    <th> Subject</th>
+                                    <th> Date / Time</th>
                                 </tr>
                                 </thead>
                                 <tbody></tbody>
                             </table>
                         </div>
-                    </div>
+                    </div>";
+                    }
+                    ?>
 
-                    <!--This model is to compose a mail-->
-                    <div class="modal fade" id="compose-modal" tabindex="-1" role="dialog">
+                    <!--This model is used to compose a mail-->
+                    <div class="modal fade" id="compose-modal" tabindex="-1"
+                        role="dialog">
                         <div class="modal-dialog modal-lg">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <button type="button" class="close"
+                                        data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                     <h4 class="modal-title">Compose</h4>
@@ -155,54 +190,71 @@
                                 <form onsubmit="return sendEmail();">
                                     <div class="modal-body">
                                         <div class="form-group">
-                                            <input type="email" class="form-control" id="compose-to" placeholder="To" required />
+                                            <input type="email" class="form-control"
+                                            id="compose-to" placeholder="To"
+                                            required />
                                         </div>
 
                                         <div class="form-group">
-                                            <input type="text" class="form-control" id="compose-subject" placeholder="Subject" required />
+                                            <input type="text" class="form-control"
+                                            id="compose-subject"
+                                            placeholder="Subject" required />
                                         </div>
 
                                         <div class="form-group">
-                                            <textarea class="form-control" id="compose-message" placeholder="Message" rows="10" required></textarea>
+                                            <textarea class="form-control"
+                                            id="compose-message" placeholder="Message"
+                                            rows="10" required></textarea>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn" data-dismiss="modal">Close</button>
-                                        <button type="submit" id="send-button" class="btn">Send</button>
+                                        <button type="button" class="btn"
+                                        data-dismiss="modal">Close</button>
+                                        <button type="submit" id="send-button"
+                                        class="btn">Send</button>
                                     </div>
                                 </form>
                             </div>
                         </div>
                     </div>
 
-                    <!--This model is to reply the mail in the inbox-->
-                    <div class="modal fade" id="reply-modal" tabindex="-1" role="dialog">
+                    <!--This model is used to reply a mail in the inbox-->
+                    <div class="modal fade" id="reply-modal" tabindex="-1"
+                        role="dialog">
                         <div class="modal-dialog modal-lg">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <button type="button" class="close"
+                                    data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                     <h4 class="modal-title">Reply</h4>
                                 </div>
                                 <form onsubmit="return sendReply();">
-                                    <input type="hidden" id="reply-message-id" />
+                                    <input type="hidden" id="reply-message-id"/>
                                     <div class="modal-body">
                                         <div class="form-group">
-                                            <input type="text" class="form-control" id="reply-to" disabled />
+                                            <input type="text" class="form-control"
+                                            id="reply-to" disabled />
                                         </div>
 
                                         <div class="form-group">
-                                            <input type="text" class="form-control disabled" id="reply-subject" disabled />
+                                            <input type="text"
+                                            class="form-control disabled"
+                                            id="reply-subject" disabled />
                                         </div>
 
                                         <div class="form-group">
-                                            <textarea class="form-control" id="reply-message" placeholder="Message" rows="10" required></textarea>
+                                            <textarea class="form-control"
+                                            id="reply-message" placeholder="Message"
+                                            rows="10" required></textarea>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn" data-dismiss="modal">Close</button>
-                                        <button type="submit" id="reply-button" class="btn">Send</button>
+                                        <button type="button" class="btn"
+                                        data-dismiss="modal">Close</button>
+                                        <button type="submit" id="reply-button"
+                                        class="btn">Send</button>
                                     </div>
                                 </form>
                             </div>
@@ -211,67 +263,90 @@
                 </div>
             </div>
         </div>
+
         <!--Twitter Widget-->
         <div class="col-md-4">
             <div id="twitterWidget" class="widgets card-shadow">
                 <div id="twitterHeader">
-                    <!-- <span class='fa fa-twitter widget-icon fa-2x'> -->
                     <h2>Twitter</h2>
                     <label class="widgetIcons">
+                    <?php
+                    if (true === $this->isSignedIn) {
+                        echo "<a href='" . $this->baseUrl()
+                            . "/index/twitter-refresh'>
+                            <span class='fa fa-refresh'></span></a>";
+                    }
+                    ?>
                         <a href='https://twitter.com' target='_blank'>
                             <span class='fa fa-external-link'></span></a>
-                    <?php
-                        echo "<a href='" . $this->baseUrl() . "/index/twitter-refresh'>
-                            <span class='fa fa-refresh'></span></a>";
-                    ?>
                     </label>
                 </div>
                 <div id="twitterBody">
-                    <?php echo $this->twitterData; ?>
+                    <?php
+                    if (false === $this->isSignedIn) {
+                        echo '<div id="twitterNotSignedIn">
+                            <p>Please SignIn to Universe to use this widget!</p>
+                            <span class="fa fa-twitter"></span></div>';
+                    } else {
+                        echo $this->twitterData;
+                    }
+                    ?>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- Google map widget -->
     <div class="row">
         <div class="col-md-6">
             <div id="googleMapWidget" class="landscapeWidgets card-shadow">
                 <div id="googleMapHeader">
                     <h2>Google Map</h2>
+                    <label class="widgetIcons">
+                    <a href='https://maps.google.com' target='_blank'>
+                        <span class='fa fa-external-link'></span></a>
+                    </label>
+                    <input id="pac-input" class="controls form-control"
+                        type="text" placeholder="Search Box">
                 </div>
                 <div id="googleMap">
-                    <input id="pac-input" class="controls form-control" type="text" placeholder="Search Box">
                 </div>
             </div>
         </div>
+
+        <!-- Youtube widget -->
         <div class="col-md-6">
             <div id="youtubeWidget" class="landscapeWidgets card-shadow">
                 <div id="youtubeHeader">
                     <h2>Youtube</h2>
+                    <button id='authorize-youtube-button' class='btn'
+                    onclick="handleYoutubeAuthClick(event)">
+                        Authorize</button>
                     <label class="widgetIcons">
-                        <a href='https://www.youtube.com' target='_blank'>
-                            <span class='fa fa-external-link'></span></a>
                         <?php
-                        echo "<a href='" . $this->baseUrl() . "/index/youtube-refresh'>
+                        echo "<a href='" . $this->baseUrl()
+                            . "/index/youtube-refresh'>
                             <span class='fa fa-refresh'></span></a>";
                         ?>
+                        <a href='https://www.youtube.com' target='_blank'>
+                            <span class='fa fa-external-link'></span></a>
                     </label>
                 </div>
                 <div id="youtubeBody">
                     <form id="youtube-form" action="#">
                         <div class="col-md-offset-1 col-md-8">
                             <p>
-                                <input type="text" id="search" placeholder="Type something..."
+                                <input type="text" id="search"
+                                placeholder="Video search"
                                 autocomplete="off" class="form-control" />
                             </p>
                         </div>
                         <div class="col-md-2">
                             <p>
-                                <button id="authorize-youtube-button" type="submit" value="Search" 
-                                class="form-control youtube-btn btn btn-primary w100" onclick="
-                                handleYoutubeAuthClick(event)">Search</button>
-                                <button type="submit" value="Search" id="youtubeSearch"
-                                class="form-control youtube-btn btn">Search</button>
+                                <button type="submit" value="Search"
+                                id="youtubeSearch"
+                                class="form-control youtube-btn btn">Search
+                                </button>
                             </p>
                         </div>
                     </form>
@@ -280,6 +355,8 @@
             </div>
         </div>
     </div>
+
+    <!-- Weather widget -->
     <div class="row">
         <div class="col-md-3">
             <div id="weatherWidget" class="widgets card-shadow">
@@ -287,8 +364,9 @@
                     <h2>Weather</h2>
                     <label class="widgetIcons">
                         <?php
-                        echo "<a href='" . $this->baseUrl() . "/index/weather-refresh'>
-                        <span class='fa fa-refresh'></span></a>";
+                        echo "<a href='" . $this->baseUrl()
+                            . "/index/weather-refresh'>
+                            <span class='fa fa-refresh'></span></a>";
                         ?>
                     </label>
                 </div>
@@ -304,26 +382,46 @@
                 </div>
             </div>
         </div>
+
+        <!-- Facebook widget -->
         <div class="col-md-6">
             <div id="facebookWidget" class="landscapeWidgets card-shadow">
                 <div id="facebookHeader">
                     <h2>Facebook</h2>
                     <label class="widgetIcons">
                         <?php
-                        echo "<a id='facebookFeedButton' href='#'>
-                        <span class='fa fa-refresh'></span></a>";
+                        if (true === $this->isSignedIn) {
+                            echo "<a id='facebookFeedButton' href='#'>
+                            <span class='fa fa-refresh'></span></a>";
+                        }
                         ?>
+                        <a href='https://www.facebook.com' target='_blank'>
+                            <span class='fa fa-external-link'></span></a>
                     </label>
                 </div>
                 <div id="facebookBody">
-                    <?php echo $this->facebookFeed; ?>
+                    <?php
+                    if (false === $this->isSignedIn) {
+                        echo '<div id="facebookNotSignedIn">
+                        <p>Please SignIn to Universe to use this widget!</p>
+                        <span class="fa fa-facebook"></span></div>';
+                    } else {
+                        echo $this->facebookFeed;
+                    }
+                    ?>
                 </div>
             </div>
         </div>
+
+        <!-- News widget -->
         <div class="col-md-3">
             <div id="newsWidget" class="widgets">
                 <div id="newsHeader">
-                    <h2>News</h2>
+                    <h2>CNN News</h2>
+                    <label class="widgetIcons">
+                        <a href='https://www.cnn.com' target='_blank'>
+                            <span class='fa fa-external-link'></span></a>
+                    </label>
                 </div>
                 <div id="newsBody">
                     <?php
@@ -336,20 +434,13 @@
             </div>
         </div>
     </div>
+
+    <!-- Cricket widget -->
     <div class="row">
         <div class="col-md-6">
-            <div id="twitterWidget" class="widgets">
-                <div id="twitterHeader">
-                    <!-- <span class='fa fa-twitter widget-icon fa-2x'> -->
+            <div id="cricketWidget" class="widgets">
+                <div id="cricketHeader">
                     <h2>Live Cricket Score</h2>
-                    <label class="widgetIcons">
-                        <?php
-                        echo "<a href='https://twitter.com' target='_blank'>
-                                <span class='fa fa-external-link'></span></a>";
-                        echo "<a href='" . $this->baseUrl() . "/index/twitter-refresh'>
-                            <span class='fa fa-refresh'></span></a>";
-                        ?>
-                    </label>
                 </div>
                 <div id="cricketBody">
                     <div id="liveRefresh">
@@ -372,7 +463,6 @@
                         echo $array[0]['de'];
                         echo '</h4>';
                         $u=$array[0]['de'];
-                        /*header('Refresh:10;URL=index.php');*/
                         ?>
                         <h4>Last Match Winner</h4>
                         <?php
@@ -380,7 +470,6 @@
                         $i = 0;
                         foreach ($rss->channel->item as $item) {
                             echo '<div class="line">';
-                            //echo "<p id='allMatches'>" . $item->description . "</p>";
                             echo "<a class='scoreLink' href =". $i .">". $item->description 
                             ."</a>";
                             echo '</div>';
