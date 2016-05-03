@@ -6,14 +6,7 @@ $('.g-signin2').click(function(){
 function onSignIn(googleUser) {
     var profile = googleUser.getBasicProfile();
     var name = profile.getName();
-    $('#twitterNotSignedIn').hide();
-    $('#facebookNotSignedIn').hide();
-    $('#gmailNotSignedIn').hide();
-    $('#authorize-button').removeClass("hidden");
-    $('#authorize-button').on('click', function(){
-        handleAuthClick();
-    });
-    $('#authorize-button').show();
+
     $.ajax({
         type: "POST",
         dataType: "json",
@@ -21,6 +14,12 @@ function onSignIn(googleUser) {
         data: "name=" + name + "&sender=google&email=" + profile.getEmail(),
         success: function(data) {
             if ('ok' == data.status) {
+                document.getElementById('authLi').innerHTML
+                    = "<a href='http://universe.com/index/sign-out' onclick='signOut();'>"
+                    + "<span class='fa fa-sign-out'></span></a>";
+                location.reload();
+            }
+            else if ('sessionAlreadySet' == data.status) {
                 document.getElementById('authLi').innerHTML
                     = "<a href='http://universe.com/index/sign-out' onclick='signOut();'>"
                     + "<span class='fa fa-sign-out'></span></a>";

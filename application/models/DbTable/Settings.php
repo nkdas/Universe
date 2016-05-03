@@ -51,4 +51,38 @@ class Application_Model_DbTable_Settings extends Zend_Db_Table_Abstract
         }
     }
 
+    public function saveTheme($theme)
+    {
+        try {
+            if (isset($_SESSION['email'])) {
+                $this->update(array('theme' => $theme), 'email="' . $_SESSION['email']
+                    . '"');
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception $e) {
+            error_log($e->getMessage());
+            return false;
+        }
+    }
+
+    public function getTheme()
+    {
+        try {
+            if (isset($_SESSION['email'])) {
+                $row = $this->fetchRow("email = '" . $_SESSION['email'] . "'");
+                if ($row) {
+                    return $row['theme'];
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        } catch (Exception $exception) {
+            return $exception->getMessage();
+        }
+    }
+
 }

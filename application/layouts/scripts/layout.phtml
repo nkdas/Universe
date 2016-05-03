@@ -6,21 +6,22 @@ echo $this->doctype('HTML5') . "\n"; ?>
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="google-signin-client_id" content="955613673981-fpdqjatkpft248qod3ddnin03tmcp9o1.apps.googleusercontent.com">
+    <meta name="google-signin-client_id"
+        content="955613673981-fpdqjatkpft248qod3ddnin03tmcp9o1.apps.googleusercontent.com">
 
     <?php echo $this->headMeta() . "\n"; ?>
     <?php echo $this->headTitle() . "\n"; ?>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
 
     <?php
     $this->headLink()->prependStylesheet($this->baseUrl().'/css/style.css');
     echo $this->headLink();
     ?>
 </head>
-<body onload="defaultFeed()">
+<body onload="defaultFeed();">
 <div id="content" class="container-fluid">
     <?php echo '<br>' . $this->layout()->content . "\n"; ?>
 </div>
@@ -31,26 +32,28 @@ echo $this->doctype('HTML5') . "\n"; ?>
 <script src="https://apis.google.com/js/platform.js" async defer></script>
 
 <?php
-$this->headScript()->prependFile($this->baseUrl().'/js/universe.js');
 $this->headScript()->prependFile($this->baseUrl().'/js/gmail.js');
 $this->headScript()->prependFile($this->baseUrl().'/js/youtube.js');
-$this->headScript()->prependFile($this->baseUrl().'/js/weather.js');
-$this->headScript()->prependFile($this->baseUrl().'/js/facebookLogin.js');
+$this->headScript()->prependFile($this->baseUrl().'/js/universe.js');
 echo $this->headScript();
 ?>
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD2_nACBJzzxF6AXHzXxcJvYYDTcORZZiA&callback=initMap&libraries=places" async defer></script>
 <!--Gmail-->
 <script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
-
 <!--youtube-->
 <script src="https://apis.google.com/js/client.js?onload=init"></script>
 <script src="https://apis.google.com/js/client.js?onload=checkAuth"></script>
 <!--newsfeeds-->
-<script type="text/javascript" src="https://www.google.com/jsapi"></script>
-<script src="http://www.google.com/uds/solutions/dynamicfeed/gfdynamicfeedcontrol.js" type="text/javascript"></script>
-<?php echo $this->headScript()->prependFile($this->baseUrl().'/js/newsfeed.js') ?>
-<!--Cricket-->
-<?php echo $this->headScript()->prependFile($this->baseUrl().'/js/cricket.js') ?>
+<script src="https://www.google.com/jsapi"></script>
+<script src="http://www.google.com/uds/solutions/dynamicfeed/gfdynamicfeedcontrol.js"></script>
+
+<?php
+$this->headScript()->prependFile($this->baseUrl().'/js/weather.js');
+$this->headScript()->prependFile($this->baseUrl().'/js/facebookLogin.js');
+$this->headScript()->prependFile($this->baseUrl().'/js/newsfeed.js');
+$this->headScript()->prependFile($this->baseUrl().'/js/cricket.js');
+echo $this->headScript();
+?>
 </body>
 </html>

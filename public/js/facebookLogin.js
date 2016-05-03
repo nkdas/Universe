@@ -96,6 +96,12 @@ function fb_login(){
                             document.getElementById('authLi').innerHTML
                                 = "<a href='http://universe.com/index/sign-out' onclick='fb_Logout();'>"
                                 + "<span class='fa fa-sign-out'></span></a>";
+                            location.reload();
+                        }
+                        else if ('sessionAlreadySet' == data.status) {
+                            document.getElementById('authLi').innerHTML
+                                = "<a href='http://universe.com/index/sign-out' onclick='fb_Logout();'>"
+                                + "<span class='fa fa-sign-out'></span></a>";
                         }
                         else if ('duplicate' == data.status) {
                             document.getElementById('message').innerHTML

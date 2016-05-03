@@ -10,11 +10,11 @@
                         <h4 class="modal-title">Themes</h4>
                     </div>
                     <div class="modal-body theme-modal-body">
-                        <div id="tulip1" class="theme-showcase"></div>
-                        <div id="tulip2" class="theme-showcase"></div>
-                        <div id="tulip3" class="theme-showcase"></div>
-                        <div id="tulip4" class="theme-showcase"></div>
-                        <div id="tulip5" class="theme-showcase"></div>
+                        <div id="tulip1" class="theme-showcase" data-target="#themeModal" data-toggle="modal"></div>
+                        <div id="tulip2" class="theme-showcase" data-target="#themeModal" data-toggle="modal"></div>
+                        <div id="tulip3" class="theme-showcase" data-target="#themeModal" data-toggle="modal"></div>
+                        <div id="tulip4" class="theme-showcase" data-target="#themeModal" data-toggle="modal"></div>
+                        <div id="tulip5" class="theme-showcase" data-target="#themeModal" data-toggle="modal"></div>
                     </div>
                 </div>
             </div>
@@ -42,11 +42,15 @@
                     echo $this->authLink;
                     ?>
                 </li>
-                <li><a href="#settings" data-toggle="tab">
-                    <span class="menu-open fa fa-cogs"></span></a></li>
-                <li><a href="#about" data-toggle="tab">
+                <?php
+                if (true === $this->isSignedIn) {
+                    echo "<li><a href='#settings' data-toggle='tab' title='Settings'>
+                        <span class='menu-open fa fa-cogs'></span></a></li>";
+                }
+                ?>
+                <li><a href="#about" data-toggle="tab" title="About">
                     <span class="menu-open fa fa-info-circle"></span></a></li>
-                <li><a href="#" data-toggle="tab">
+                <li><a href="#" data-toggle="tab" title="Close">
                     <span class="menu-close fa fa-close"></span></a></li>
             </ul>
             <div class="tab-content">
@@ -86,32 +90,41 @@
                 <!-- Settings -->
                 <div class="tab-pane" id="settings">
                     <h3>Settings</h3>
-                    <button type="button" class="btn" data-toggle="modal"
-                    data-target="#themeModal">Select themes</button>
-                    <input id="facebookFeedUrl" name="facebookFeedUrl" type="text" 
-                    class="form-control" placeholder="Facebook feed url"/>
-                    <input id="fbFeedSave" name="fbFeedSave" type="button"
-                    class="btn btn-primary" value="Save"/>
+                    <div class="forms">
+                        <div class="form-group">
+                            <input id="themeSelect" type="button" class="btn" data-toggle="modal"
+                            data-target="#themeModal" value="Select themes"/>
+                        </div>
+                        <div class="form-group">
+                            <input id="facebookFeedUrl" name="facebookFeedUrl" type="text"
+                            class="form-control" placeholder="Facebook feed url"/>
+                        </div>
+                        <input id="fbFeedSave" name="fbFeedSave" type="button"
+                        class="btn btn-primary" value="Save"/>
+                    </div>
                 </div>
 
                 <div class="tab-pane" id="about">
                     <h3>About</h3>
-                    <p>
-                        Universe is a Web Portal application. Designed to get
-                        your Mails, News, Social Media, Weather Reporting, Maps
-                        and more.<br>All in one place.
-                    </p>
-                    <h3>Privacy policy</h3>
-                    <p>
-                        We here at Universe.com respect your privacy. Your
-                        privacy is important to us and we are always commited to
-                        safeguarding it.<br>Universe.com does not collect any
-                        personal information about you without your knowledge.
-                        <br>When you provide your email Id and other personal
-                        information, we never share it with anyone. We only use
-                        it to provide you a better experience.
-                    </p>
-                    <h3>Universe.com 2016</h3>
+                    <div class="forms">
+                        <h3>Universe</h3>
+                        <p>
+                            Universe is a Web Portal application. Designed to get
+                            your Mails, News, Social Media, Weather Reporting, Maps
+                            and more.<br>All in one place.
+                        </p>
+                        <h3>Privacy policy</h3>
+                        <p>
+                            We here at Universe.com respect your privacy. Your
+                            privacy is important to us and we are always commited to
+                            safeguarding it.<br>Universe.com does not collect any
+                            personal information about you without your knowledge.
+                            <br>When you provide your email Id and other personal
+                            information, we never share it with anyone. We only use
+                            it to provide you a better experience.
+                        </p>
+                        <h3>Universe.com 2016</h3>
+                    </div>
                 </div>
             </div>
         </div>
@@ -133,15 +146,14 @@
             <div id="gMailWidget" class="widgets card-shadow">
                 <div id="gMailHeader">
                     <h2>GMail</h2>
-                    <button id='authorize-button' class='btn hidden'>
-                        Authorize</button>
                     <?php
                     if (true === $this->isSignedIn) {
 
                         echo "
-
                             <a href='#compose-modal' data-toggle='modal'
                             id='compose-button' class='btn hidden'>Compose</a>
+                            <button id='authorize-button' class='btn hidden'>
+                            Authorize</button>
                         ";
                     }
                     ?>
@@ -319,21 +331,28 @@
             <div id="youtubeWidget" class="landscapeWidgets card-shadow">
                 <div id="youtubeHeader">
                     <h2>Youtube</h2>
-                    <button id='authorize-youtube-button' class='btn'
-                    onclick="handleYoutubeAuthClick(event)">
-                        Authorize</button>
+                    <?php
+                    if (true === $this->isSignedIn) {
+                        echo "
+                            <button id='authorize-youtube-button' class='btn'
+                            onclick='handleYoutubeAuthClick(event)'>
+                                Authorize</button>
+                            ";
+                    }
+                    ?>
                     <label class="widgetIcons">
-                        <?php
-                        echo "<a href='" . $this->baseUrl()
-                            . "/index/youtube-refresh'>
-                            <span class='fa fa-refresh'></span></a>";
-                        ?>
                         <a href='https://www.youtube.com' target='_blank'>
                             <span class='fa fa-external-link'></span></a>
                     </label>
                 </div>
                 <div id="youtubeBody">
-                    <form id="youtube-form" action="#">
+                    <?php
+                    if (false === $this->isSignedIn) {
+                    echo '<div id="youtubeNotSignedIn">
+                        <p>Please SignIn to Universe to use this widget!</p>
+                        <span class="fa fa-youtube-play"></span></div>';
+                    } else {
+                        echo '<form id="youtube-form" action="#">
                         <div class="col-md-offset-1 col-md-8">
                             <p>
                                 <input type="text" id="search"
@@ -350,7 +369,9 @@
                             </p>
                         </div>
                     </form>
-                    <div id="youtube-results"></div>
+                    <div id="youtube-results"></div>';
+                    }
+                    ?>
                 </div>
             </div>
         </div>
@@ -363,11 +384,8 @@
                 <div id="weatherHeader">
                     <h2>Weather</h2>
                     <label class="widgetIcons">
-                        <?php
-                        echo "<a href='" . $this->baseUrl()
-                            . "/index/weather-refresh'>
-                            <span class='fa fa-refresh'></span></a>";
-                        ?>
+                        <a href='https://www.openweathermap.org' target='_blank'>
+                            <span class='fa fa-external-link'></span></a>
                     </label>
                 </div>
                 <div id="weatherBody">
@@ -375,8 +393,8 @@
                         <ul id="scroller">
                             <!-- The forecast items will go here -->
                         </ul>
-                        <a href="#" class="arrow previous">Previous</a>
-                        <a href="#" class="arrow next">Next</a>
+                        <a href="#" class="arrow previous"><span class='glyphicon glyphicon-chevron-left'></span></a>
+                        <a href="#" class="arrow next"><span class='glyphicon glyphicon-chevron-right'></span></a>
                         <p class="location"></p>
                     </div>
                 </div>
@@ -455,22 +473,21 @@
                             ?>
                         </div>
                         <?php
-                        echo '<br/>';
                         $content=file_get_contents("http://cricscore-api.appspot.com/csa?id=$u");
-                        $array = json_decode($content,true);
+                        $array = json_decode($content, true);
                         echo '<h3><font color="#33ccff">Live Match</font> :</h3> ';
                         echo '<h4>';
                         echo $array[0]['de'];
                         echo '</h4>';
                         $u=$array[0]['de'];
                         ?>
-                        <h4>Last Match Winner</h4>
+                        <h4>Other matches</h4>
                         <?php
                         $rss = simplexml_load_file('http://static.cricinfo.com/rss/livescores.xml');
                         $i = 0;
                         foreach ($rss->channel->item as $item) {
                             echo '<div class="line">';
-                            echo "<a class='scoreLink' href =". $i .">". $item->description 
+                            echo "<a class='scoreLink' href ='" . $item->link . "' target='_blank'>". $item->description
                             ."</a>";
                             echo '</div>';
                             $i++;

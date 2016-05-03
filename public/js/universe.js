@@ -12,6 +12,22 @@ $(".menu-close").click(function(e) {
     }
 });
 
+$(document).ready(function(){
+    $.ajax({
+        type: "POST",
+        dataType: "json",
+        url: "http://universe.com/index/get-theme",
+        success: function(data) {
+            if (data.status) {
+                $('body').css('background-image', data.status);
+            }
+        },
+        error: function( jqXHR, textStatus, errorThrown) {
+            console.log(errorThrown);
+        }
+    });
+});
+
 $("#facebookFeedButton").click(function() {
     $.ajax({
         type: "POST",
@@ -37,7 +53,19 @@ $("#fbFeedSave").click(function() {
         url: "http://universe.com/index/save-facebook-url",
         data: 'facebookUrl=' + data,
         success: function(data) {
-            
+            if ('success' == data.status) {
+                document.getElementById('message').innerHTML
+                    = "<div class='notification alert alert-success card-shadow'>"
+                    + "<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>"
+                    + "Facebook feed url saved successfully."
+                    + "</div>";
+            } else {
+                document.getElementById('message').innerHTML
+                    = "<div class='notification alert alert-danger card-shadow'>"
+                    + "<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>"
+                    + "Sorry! Unable to process your request."
+                    + "</div>";
+            }
         },
         error: function( jqXHR, textStatus, errorThrown) {
             console.log(errorThrown);
@@ -131,3 +159,35 @@ function showPosition(position) {
 }
 
 // Functions for GoogleMap ends here
+
+
+// Setting themes
+
+$('.theme-showcase').click(function(){
+    theme = $(this).css('background-image');
+    $('body').css('background-image', theme);
+    $.ajax({
+        type: "POST",
+        dataType: "json",
+        url: "http://universe.com/index/save-theme",
+        data: 'theme=' + theme,
+        success: function(data) {
+            if ('success' == data.status) {
+                document.getElementById('message').innerHTML
+                    = "<div class='notification alert alert-success card-shadow'>"
+                    + "<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>"
+                    + "Theme set successfully."
+                    + "</div>";
+            } else {
+                document.getElementById('message').innerHTML
+                    = "<div class='notification alert alert-danger card-shadow'>"
+                    + "<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>"
+                    + "Sorry! Unable to process your request."
+                    + "</div>";
+            }
+        },
+        error: function( jqXHR, textStatus, errorThrown) {
+            console.log(errorThrown);
+        }
+    });
+});

@@ -40,18 +40,18 @@ class IndexController extends Zend_Controller_Action
                 $this->view->firstName = $_SESSION['firstName'];
                 if (isset($_SESSION['loggedInWith'])) {
                     if ('google' == $_SESSION['loggedInWith']) {
-                        $this->view->authLink = "<a href='http://universe.com/index/sign-out' onclick='signOut();'>
+                        $this->view->authLink = "<a href='http://universe.com/index/sign-out' onclick='signOut();' title='Sign Out'>
                             <span class='fa fa-sign-out'></span></a>";
                     } else {
-                        $this->view->authLink = "<a href='http://universe.com/index/sign-out' onclick='fb_Logout();'>
+                        $this->view->authLink = "<a href='http://universe.com/index/sign-out' onclick='fb_Logout();' title='Sign Out'>
                             <span class='fa fa-sign-out'></span></a>";
                     }
                 } else {
-                    $this->view->authLink = "<a href='http://universe.com/index/sign-out'>
+                    $this->view->authLink = "<a href='http://universe.com/index/sign-out' title='Sign Out'>
                             <span class='fa fa-sign-out'></span></a>";
                 }
             } else {
-                $this->view->authLink = "<a href='#signIn' data-toggle='tab'>
+                $this->view->authLink = "<a href='#signIn' data-toggle='tab' title='Sign In'>
                             <span class='menu-open fa fa-sign-in'></span></a>";
             }
         }catch(Exception $exception){
@@ -246,39 +246,46 @@ class IndexController extends Zend_Controller_Action
 
     public function setGoogleSessionAction()
     {
-        try{
-            if (isset($_POST['name']) && isset($_POST['sender'])) {
-                if (!($this->_users->checkUserExists($_POST['email']))) {
-                    $status = $this->_externalUsers->saveData($_POST);
-                    if (true === $status) {
-                        $this->_settings->addUserData($_POST['email']);
-                        $_SESSION['firstName'] = $_POST['name'];
-                        $_SESSION['loggedInWith'] = $_POST['sender'];
-                        $_SESSION['email'] = $_POST['email'];
-                        $state = array('status' => 'ok');
-                        echo json_encode($state);
-                    } else if (false !== strpos($status, 'Duplicate entry')) {
-                        if (false === strpos($status, $_POST['sender'])) {
-                            $state = array('status' => 'duplicate');
-                            echo json_encode($state);
-                        } else {
+        if (isset($_SESSION['firstName'])) {
+            $state = array('status' => 'sessionAlreadySet');
+            echo json_encode($state);
+            exit;
+        } else {
+            try{
+                if (isset($_POST['name']) && isset($_POST['sender'])) {
+                    if (!($this->_users->checkUserExists($_POST['email']))) {
+                        $status = $this->_externalUsers->saveData($_POST);
+                        if (true === $status) {
                             $this->_settings->addUserData($_POST['email']);
                             $_SESSION['firstName'] = $_POST['name'];
                             $_SESSION['loggedInWith'] = $_POST['sender'];
                             $_SESSION['email'] = $_POST['email'];
                             $state = array('status' => 'ok');
                             echo json_encode($state);
+                        } else if (false !== strpos($status, 'Duplicate entry')) {
+                            if (false === strpos($status, $_POST['sender'])) {
+                                $state = array('status' => 'duplicate');
+                                echo json_encode($state);
+                            } else {
+                                $this->_settings->addUserData($_POST['email']);
+                                $_SESSION['firstName'] = $_POST['name'];
+                                $_SESSION['loggedInWith'] = $_POST['sender'];
+                                $_SESSION['email'] = $_POST['email'];
+                                $state = array('status' => 'ok');
+                                echo json_encode($state);
+                            }
+                        } else {
+                            $state = array('status' => 'fail');
+                            echo json_encode($state);
                         }
-                    } else {
-                        $state = array('status' => 'fail');
-                        echo json_encode($state);
                     }
                 }
+            } catch (Exception $e) {
+                $state = array('status' => 'fail');
+                echo json_encode($state);
             }
-        } catch (Exception $e) {
-            $state = array('status' => 'fail');
-            echo json_encode($state);
         }
+
         exit;
     }
 
@@ -294,6 +301,31 @@ class IndexController extends Zend_Controller_Action
         $url = $_POST['facebookUrl'];
         if ($this->_settings->saveFacebookUrl($url)) {
             $state = array('status' => 'success');
+        } else {
+            $state = array('status' => 'fail');
+        }
+        echo json_encode($state);
+        exit;
+    }
+
+    public function saveThemeAction()
+    {
+        $theme = $_POST['theme'];
+        if ($this->_settings->saveTheme($theme)) {
+            $state = array('status' => 'success');
+        } else {
+            $state = array('status' => 'fail');
+        }
+        echo json_encode($state);
+        exit;
+    }
+
+    public function getThemeAction()
+    {
+        $theme = $this->_settings->getTheme();
+
+        if ($theme) {
+            $state = array('status' => $theme);
         } else {
             $state = array('status' => 'fail');
         }

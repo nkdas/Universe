@@ -12,11 +12,12 @@
 }
 
 body {
-    font-family: 'Roboto', sans-serif !important;
-    font-weight: 300 !important;
-    background: url('../themes/tulip4.jpg') no-repeat;
+    background-image: url('../themes/tulip4.jpg');
+    background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: 100% 100%;
+    font-family: 'Roboto', sans-serif !important;
+    font-weight: 300 !important;
 }
 
 h1 {
@@ -173,7 +174,7 @@ input:focus {
     transition: all 0.15s ease-in-out;
 }
 
-#signInButton, #signUpButton {
+#signInButton, #signUpButton, #fbFeedSave, #themeSelect {
     background-color: #00BBFF !important;
     border: 0px !important;
     color: #fff !important;
@@ -188,13 +189,13 @@ input:focus {
 
 #GName {
     font-size: 16px;
-    font-weight: bold;
+    font-weight: 300;
     margin: 10px 0 0;
     min-height: 1em;
 }
 
 #authorize-button, #authorize-youtube-button {
-    background-color: #db4437 !important;
+    background-color: #F44336 !important;
     border-radius: 0px !important;
     border: 1px solid #FFF!important;
     margin-top: -10px !important;
@@ -203,7 +204,7 @@ input:focus {
 
 #authorize-button:hover {
     background-color: #FFF !important;
-    color: #db4437 !important;
+    color: #F44336 !important;
 }
 
 #authorize-youtube-button {
@@ -216,7 +217,7 @@ input:focus {
 }
 
 #compose-button {
-    background-color: #db4437 !important;
+    background-color: #F44336 !important;
     border-radius: 0px !important;
     border: 1px solid #FFF!important;
     margin-top: -10px !important;
@@ -225,7 +226,7 @@ input:focus {
 
 #compose-button:hover {
     background-color: #FFF !important;
-    color: #db4437 !important;
+    color: #F44336 !important;
 }
 
 #compose {
@@ -267,16 +268,16 @@ iframe {
 }
 
 .modal-footer .btn {
-    background-color: #db4437 !important;
+    background-color: #F44336 !important;
     border-radius: 1px !important;
-    border: 1px solid #db4437!important;
+    border: 1px solid #F44336 !important;
     margin-top: -10px !important;
     color: #FFF !important;
 }
 
 .modal-footer .btn:hover {
     background-color: #FFF !important;
-    color: #db4437 !important;
+    color: #F44336 !important;
 }
 
 @media screen and (max-width: 1000px) {
@@ -342,7 +343,7 @@ iframe {
 }
 
 #gMailHeader {
-    background-color: #db4437;
+    background-color: #F44336;
     height: 50px !important;
 }
 
@@ -366,7 +367,7 @@ iframe {
 }
 
 #weatherHeader {
-    background-color: #034484;
+    background-color: #673AB7;
     height: 50px !important;
 }
 
@@ -439,10 +440,10 @@ iframe {
 }
 
 #pac-input {
-    background-color: #fff !important;
     font-family: 'Roboto', sans-serif !important;
-    font-size: 15px;
     font-weight: 300;
+    background-color: #fff !important;
+    font-size: 15px;
     margin-left: 12px;
     padding: 0 11px 0 13px;
     text-overflow: ellipsis;
@@ -465,8 +466,8 @@ iframe {
 
 #type-selector label {
     font-family: 'Roboto', sans-serif !important;
-    font-size: 13px;
     font-weight: 300;
+    font-size: 13px;
 }
 
 #target {
@@ -492,10 +493,7 @@ iframe {
 }
 
 #weather:before{
-    background: url("../img/preloader.gif") no-repeat center center #111;
-    border: 1px solid #000;
-    border-radius: 50% 50% 50% 50%;
-    box-shadow: 0 1px 2px #444;
+    background: url("../img/preloader.gif") no-repeat center center #FFF;
     content: "";
     height: 44px;
     left: 50%;
@@ -525,8 +523,7 @@ iframe {
 }
 
 #weather.loaded{
-    background-color: #1D63A8;
-    box-shadow:0 0 5px rgba(0,0,0,0.15);
+    background-color: #FFF;
 }
 
 #weather.first a.previous,
@@ -559,20 +556,19 @@ iframe {
 }
 
 #scroller li .day{
-    color:#FFF;
-    font-size:15px;
-    padding-top: 20px;
-    text-shadow:1px 1px 0 rgba(0,0,0,0.15);
+    color:#673AB7;
+    font-size:18px;
+    padding-top: 50px;
 }
 
 #scroller li .day b{
-    font-weight:normal;
-    color:#FFF;
+    font-weight:300;
+    color:#673AB7;
 }
 
 #scroller li .cond{
     bottom: -52px;
-    color: #FFF;
+    color: #673AB7;
     font-size: 24px;
     position: absolute;
     width: 100%;
@@ -587,15 +583,11 @@ iframe {
 }
 
 .arrow{
-    background:url('../img/arrows.png') no-repeat;
-    width:34px;
-    height:45px;
     position:absolute;
     top:50%;
     margin-top:-45px;
-    opacity:0.6;
-    overflow:hidden;
-    text-indent:-99999px;
+    overflow: hidden;
+    font-size: 30px;
 }
 
 .arrow:hover{
@@ -613,7 +605,7 @@ iframe {
 
 p.location{
     font-size:20px;
-    color:#FFF;
+    color:#673AB7;
     text-align:center;
     margin-top:300px;
 }
@@ -673,13 +665,20 @@ iframe {
 }
 
 /* Alert box */
-.alert-danger {
+.alert-danger, .alert-success {
     border-radius: 1px !important;
-    background-color: #dc143c !important;
     background-image: none !important;
-    border: 1px solid #dc143c !important;
     color: #000 !important;
     text-shadow: none !important;
+}
+
+.alert-danger {
+    background-color: #dc143c !important;
+    border: 1px solid #dc143c !important;
+}
+.alert-success {
+    background-color: #05dca6 !important;
+    border: 1px solid #05dca6 !important;
 }
 
 /* Theme showcase */
@@ -696,12 +695,12 @@ iframe {
 }
 
 #tulip1 {
-    background: url('../themes/tulip1.jpg') no-repeat;
+    background-image: url('../themes/tulip1.jpg');
     background-size: 100% 100%;
 }
 
 #tulip2 {
-    background: url('../themes/tulip2.jpg') no-repeat;
+    background-image: url('../themes/tulip2.jpg');
     background-size: 100% 100%;
 }
 /*News feed*/
@@ -745,21 +744,18 @@ iframe {
     color: #11aafa;
 }
 /*Cricket*/
-p {
-    /*margin: 0 0 10px;
-    font: small-caption;*/
-}
 .scoreLink{
-    color: #FFFFFF !important;
+    color: #FFF !important;
+    font-size: 18px !important;
 }
 
 #tulip3 {
-    background: url('../themes/tulip3.jpg') no-repeat;
+    background-image: url('../themes/tulip3.jpg');
     background-size: 100% 100%;
 }
 
 #tulip4 {
-    background: url('../themes/tulip4.jpg') no-repeat;
+    background-image: url('../themes/tulip4.jpg');
     background-size: 100% 100%;
 }
 
@@ -849,7 +845,7 @@ p {
     height: 340px !important;
 }
 
-#twitterNotSignedIn, #gmailNotSignedIn, #facebookNotSignedIn {
+#twitterNotSignedIn, #gmailNotSignedIn, #facebookNotSignedIn, #youtubeNotSignedIn {
     height: 350px !important;
     margin-left: -5px !important;
     margin-right: -5px !important;
@@ -863,13 +859,31 @@ p {
 }
 
 #gmailNotSignedIn {
-    background-color: #db4437;
+    background-color: #F44336;
 }
 
 #facebookNotSignedIn {
     background-color: #3B5998;
 }
 
-#twitterNotSignedIn span, #gmailNotSignedIn span, #facebookNotSignedIn span{
+#youtubeNotSignedIn {
+    background-color: #cc181e;
+}
+
+#twitterNotSignedIn span, #gmailNotSignedIn span,
+#facebookNotSignedIn span, #youtubeNotSignedIn span{
     font-size: 72px !important;
+}
+
+#about .forms p {
+    color: #555 !important;
+    font-family: 'Roboto', sans-serif !important;
+    font-size: 16px !important;
+    font-weight: 300;
+}
+
+#about .forms h3 {
+    font-family: 'Roboto', sans-serif !important;
+    font-weight: 300;
+    color: #00BBFF !important;
 }
