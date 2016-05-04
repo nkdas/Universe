@@ -13,6 +13,7 @@ $(".menu-close").click(function(e) {
 });
 
 $(document).ready(function(){
+    $("#facebookFeedButton").click();
     $.ajax({
         type: "POST",
         dataType: "json",

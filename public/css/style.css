@@ -887,3 +887,7 @@ iframe {
     font-weight: 300;
     color: #00BBFF !important;
 }
+
+#facebookBody img {
+    border: 2px solid #EEE !important;
+}

@@ -132,6 +132,7 @@ class IndexController extends Zend_Controller_Action
                 error_log($exc->getMessage());
             }
         }
+
     }
 
     /**
@@ -262,10 +263,12 @@ class IndexController extends Zend_Controller_Action
                             $_SESSION['email'] = $_POST['email'];
                             $state = array('status' => 'ok');
                             echo json_encode($state);
+                            exit;
                         } else if (false !== strpos($status, 'Duplicate entry')) {
                             if (false === strpos($status, $_POST['sender'])) {
                                 $state = array('status' => 'duplicate');
                                 echo json_encode($state);
+                                exit;
                             } else {
                                 $this->_settings->addUserData($_POST['email']);
                                 $_SESSION['firstName'] = $_POST['name'];
@@ -273,10 +276,12 @@ class IndexController extends Zend_Controller_Action
                                 $_SESSION['email'] = $_POST['email'];
                                 $state = array('status' => 'ok');
                                 echo json_encode($state);
+                                exit;
                             }
                         } else {
                             $state = array('status' => 'fail');
                             echo json_encode($state);
+                            exit;
                         }
                     }
                 }
@@ -285,14 +290,34 @@ class IndexController extends Zend_Controller_Action
                 echo json_encode($state);
             }
         }
-
         exit;
     }
 
     public function facebookRefreshAction()
     {
         $url = $this->_settings->getFacebookUrl($_SESSION['email']);
-        echo $this->_facebook->getFacebookFeed($url);
+        $feed = $this->_facebook->getFacebookFeed($url);
+        $feed = trim($feed);
+        if ('<h3></h3>' == $feed) {
+            $feed = "<h3>How to use this widget?</h3>"
+                . "<p>Sign In to Facebook and click on notifications</p>"
+                . "<img src='images/facebook/facebook2.png'><br><br>"
+                . "<p>From the notifications dropdown, Select 'See All'</p>"
+                . "<img src='images/facebook/facebook3.png'><br><br>"
+                . "<p>You will be redirected to your notifications page</p>"
+                . "<p>In the notifications page, click on RSS</p>"
+                . "<img src='images/facebook/facebook.png'><br><br>"
+                . "<p>You will be redirected to RSS page</p>"
+                . "<img src='images/facebook/facebook5.png'><br><br>"
+                . "<p>Copy the url from the address bar</p>"
+                . "<img src='images/facebook/facebook4.png'><br><br>"
+                . "<p>From the sidebar open Settings by clicking "
+                . "<span class='menu-open fa fa-cogs'></span><br>"
+                . " enter the copied url and save.<br><br>Now refresh your widget</p>";
+
+        }
+
+        echo $feed;
         exit;
     }
 
