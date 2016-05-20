@@ -15,8 +15,8 @@ class Application_Model_Twitter_Twitter
     private $_consumerKey, $_consumerSecret;
     public function __construct()
     {
-        $this->_consumerKey = 'dvQk9AWXYaXZHieW5PaP0tDaL';
-        $this->_consumerSecret = 'jC4q1eCmAzAhEF7WLpMvDXaM22z9sPrJPwjJSVIqGq6JKa72NT';
+        $this->_consumerKey = '3GCck5cf6Rzz3Lcv0jAY3fKXf';
+        $this->_consumerSecret = 'KKQqpW0dO281Ox3Fw5PmiWKSO0nEMrDpNehe5UPoiJ0db4ZjfC';
     }
 
     /**
@@ -48,7 +48,7 @@ class Application_Model_Twitter_Twitter
         setcookie('token_secret', $tokenSecret, time() + 60 * 10);
         setcookie('oauth_token', ' ', time() - 3600);
         setcookie('oauth_token', $oauthToken, time() + 60 * 10);
-
+        setcookie('oauth_verifier', ' ', time() - 3600);
         // Get the url where the authorization is to be done
         $url = $connection->url('oauth/authorize', array('oauth_token' => $oauthToken));
 
@@ -117,7 +117,7 @@ class Application_Model_Twitter_Twitter
             // Set session for the controller to know that it has been through getting the
             // access token and required user data from Twitter and doesn't need to call this
             // function again.
-            $_SESSION['isOAuthTokenPresent'] = '0';
+            $_SESSION['isOAuthTokenPresent'] = '1';
 
             foreach($string as $items)
             {

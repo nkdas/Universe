@@ -34,6 +34,13 @@ class Application_Model_DbTable_User extends Zend_Db_Table_Abstract
         }
     }
 
+    /**
+     * @function    checkUserExists()
+     * @description This function checks if an email already exists in the database.
+     * @param       string $email email id
+     *
+     * @return      boolean
+     */
     public function checkUserExists($email)
     {
         $row = $this->fetchRow("email = '" . $email . "'");

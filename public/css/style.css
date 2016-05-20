@@ -1,6 +1,6 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,300,100);
 @import url(https://fonts.googleapis.com/css?family=Marck+Script);
-/*For news feed*/
+/* For news feed */
 @import url("http://www.google.com/uds/solutions/dynamicfeed/gfdynamicfeedcontrol.css");
 
 * {
@@ -33,7 +33,7 @@ h1 {
     -o-box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19) !important;
 }
 
-/* Content -------------------- */
+/* Content */
 #wrapper {
     padding-left: 50px;
     -webkit-transition: all 0.5s ease;
@@ -72,7 +72,7 @@ h1 {
     margin-right: -250px;
 }
 
-/* Sidebar -------------------- */
+/* Sidebar */
 .sidebar-nav {
     position: absolute;
     top: 0;
@@ -144,7 +144,7 @@ h1 {
     color: #333 !important;
 }
 
-/* Side bar Forms -------------------- */
+/* Side bar Forms */
 .forms {
     border-radius: 1px !important;
     background-color: #FFF;
@@ -181,7 +181,7 @@ input:focus {
     text-shadow: none !important;
 }
 
-/* GMail widget -------------------- */
+/* GMail widget */
 .img-circle {
     height: 42px;
     width: 42px;
@@ -281,13 +281,18 @@ iframe {
 }
 
 @media screen and (max-width: 1000px) {
-    .table-responsive>.table>tbody>tr>td, .table-responsive>.table>tbody>tr>th, .table-responsive>.table>tfoot>tr>td, .table-responsive>.table>tfoot>tr>th, .table-responsive>.table>thead>tr>td, .table-responsive>.table>thead>tr>th {
+    .table-responsive>.table>tbody>tr>td,
+    .table-responsive>.table>tbody>tr>th,
+    .table-responsive>.table>tfoot>tr>td,
+    .table-responsive>.table>tfoot>tr>th,
+    .table-responsive>.table>thead>tr>td,
+    .table-responsive>.table>thead>tr>th {
         white-space:  normal !important;
         word-break: break-all !important;
     }
 }
 
-/* Widgets common -------------------- */
+/* Widgets common */
 .widgets, .landscapeWidgets {
     height: 400px;
     background: #FFF;
@@ -336,7 +341,7 @@ iframe {
     padding-bottom: 30px !important;
 }
 
-/* Widget headers -------------------- */
+/* Widget headers */
 #twitterHeader {
     background-color: #1da1f2;
     height: 50px !important;
@@ -376,7 +381,7 @@ iframe {
     height: 50px !important;
 }
 
-/* Widget body -------------------- */
+/* Widget body */
 #twitterBody , #gMailBody, #facebookBody, #youtubeBody, #cricketBody {
     height: 350px !important;
     padding-left: 5px;
@@ -385,7 +390,7 @@ iframe {
     width: 100% !important;
 }
 
-/* Web search -------------------- */
+/* Web search */
 #searchBox {
     border-radius: 1px !important;
     border: 0px solid #FFF !important;
@@ -411,11 +416,6 @@ iframe {
     background-image: url("../images/bingLogo.png");
 }
 
-#cricketBody {
-    background-image: url("../images/sachin.jpg");
-    background-size: cover;
-}
-
 #yahooButton {
     background-image: url("../images/yahooLogo.png");
 }
@@ -424,7 +424,7 @@ iframe {
     background-image: url("../images/wikipediaLogo.png");
 }
 
-/* Twitter widget -------------------- */
+/* Twitter widget */
 #twitterBody h3 {
     color: #1da1f2;
 }
@@ -434,7 +434,7 @@ iframe {
     font-size: 24px !important;
 }
 
-/* GoogleMap widget -------------------- */
+/* GoogleMap widget */
 #googleMap {
     height: 350px !important;
 }
@@ -485,7 +485,7 @@ iframe {
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
 }
 
-/* Weather widget -------------------- */
+/* Weather widget */
 #weather{
     position:relative;
     overflow:hidden;
@@ -493,7 +493,7 @@ iframe {
 }
 
 #weather:before{
-    background: url("../img/preloader.gif") no-repeat center center #FFF;
+    background: url("../weather/preloader.gif") no-repeat center center #FFF;
     content: "";
     height: 44px;
     left: 50%;
@@ -514,7 +514,7 @@ iframe {
 }
 
 #weather.loaded #scroller,
-#weather.loaded .arrow{
+#weather.loaded .arrow {
     display:block
 }
 
@@ -614,7 +614,7 @@ p.location b{
     color:#FFF;
 }
 
-/* Youtube widget -------------------- */
+/* Youtube widget */
 #youtubeSearch {
     background-color: #cc181e !important;
     border-radius: 1px !important;
@@ -703,6 +703,57 @@ iframe {
     background-image: url('../themes/tulip2.jpg');
     background-size: 100% 100%;
 }
+
+#tulip3 {
+    background-image: url('../themes/tulip3.jpg');
+    background-size: 100% 100%;
+}
+
+#tulip4 {
+    background-image: url('../themes/tulip4.jpg');
+    background-size: 100% 100%;
+}
+
+#space1 {
+    background-image: url('../themes/space1.jpg');
+    background-size: 100% 100%;
+}
+
+#space2 {
+    background-image: url('../themes/space2.jpg');
+    background-size: 100% 100%;
+}
+
+#space3 {
+    background-image: url('../themes/space3.jpg');
+    background-size: 100% 100%;
+}
+
+#space4 {
+    background-image: url('../themes/space4.jpg');
+    background-size: 100% 100%;
+}
+
+#rainbow1 {
+    background-image: url('../themes/rainbow1.jpg');
+    background-size: 100% 100%;
+}
+
+#rainbow2 {
+    background-image: url('../themes/rainbow2.jpg');
+    background-size: 100% 100%;
+}
+
+#guitar1 {
+    background-image: url('../themes/guitar1.jpg');
+    background-size: 100% 100%;
+}
+
+#guitar2 {
+    background-image: url('../themes/guitar2.jpg');
+    background-size: 100% 100%;
+}
+
 /*News feed*/
 #feedControl {
     margin-top : 10px;
@@ -745,18 +796,8 @@ iframe {
 }
 /*Cricket*/
 .scoreLink{
-    color: #FFF !important;
+    color: #00BBFF !important;
     font-size: 18px !important;
-}
-
-#tulip3 {
-    background-image: url('../themes/tulip3.jpg');
-    background-size: 100% 100%;
-}
-
-#tulip4 {
-    background-image: url('../themes/tulip4.jpg');
-    background-size: 100% 100%;
 }
 
 .abcRioButtonContentWrapper, .abcRioButtonLightBlue, .g-signin2 {
@@ -891,3 +932,13 @@ iframe {
 #facebookBody img {
     border: 2px solid #EEE !important;
 }
+
+.error {
+    text-align: left !important;
+    padding: 10px;
+}
+
+#twitterBody p {
+    font-size: 24px !important;
+}
+

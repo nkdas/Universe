@@ -35,16 +35,20 @@ class IndexController extends Zend_Controller_Action
         // the sign in icon to sign out
         try {
             $this->view->isSignedIn = false;
-            if (isset($_SESSION['firstName'])){
+            if (isset($_SESSION['firstName'])) {
                 $this->view->isSignedIn = true;
                 $this->view->firstName = $_SESSION['firstName'];
                 if (isset($_SESSION['loggedInWith'])) {
                     if ('google' == $_SESSION['loggedInWith']) {
-                        $this->view->authLink = "<a href='http://universe.com/index/sign-out' onclick='signOut();' title='Sign Out'>
-                            <span class='fa fa-sign-out'></span></a>";
+                        $this->view->authLink 
+                        = "<a href='http://universe.com/index/sign-out' " 
+                        . "onclick='signOut();' title='Sign Out'>"
+                        . "<span class='fa fa-sign-out'></span></a>";
                     } else {
-                        $this->view->authLink = "<a href='http://universe.com/index/sign-out' onclick='fb_Logout();' title='Sign Out'>
-                            <span class='fa fa-sign-out'></span></a>";
+                        $this->view->authLink 
+                        = "<a href='http://universe.com/index/sign-out' " 
+                        . "onclick='fb_Logout();' title='Sign Out'>" 
+                        . "<span class='fa fa-sign-out'></span></a>";
                     }
                 } else {
                     $this->view->authLink = "<a href='http://universe.com/index/sign-out' title='Sign Out'>
@@ -123,14 +127,18 @@ class IndexController extends Zend_Controller_Action
         // Else call the function twitterAction() to get user-timeline
 
         if (isset($_SESSION['isOAuthTokenPresent'])
-            && ('1' == $_SESSION['isOAuthTokenPresent']))
-        {
+            && ('1' == $_SESSION['isOAuthTokenPresent'])) {
             try {
                 $this->twitterAction();
             } catch (Exception $exc) {
                 $_SESSION['isOAuthTokenPresent'] = '0';
                 error_log($exc->getMessage());
+                $this->view->twitterData 
+                = "<p>Sorry! Twitter API may be down for maintenance.</p>";
             }
+        } else {
+            $this->view->twitterData = "<p>Please refresh the widget by clicking on  
+            <span class='fa fa-refresh'></span>  to get your feeds</p>";
         }
 
     }
@@ -158,7 +166,7 @@ class IndexController extends Zend_Controller_Action
             $auth = Zend_Auth::getInstance();
             $result = $auth->authenticate($authAdapter);
 
-            if($result->isValid()) {
+            if ($result->isValid()) {
                 $auth->getStorage()->write($authAdapter->getResultRowObject(null, 'password'));
                 $this->_redirect('index');
             } else {
@@ -227,11 +235,31 @@ class IndexController extends Zend_Controller_Action
         $this->view->twitterData = $this->_twitter->getAccessToken();
     }
 
+    /**
+    * @function     twitterRefreshAction()
+    * @description  This function is used to get the oAuthToken
+    *               from Twitter to be exchanged to get the AccessToken
+    *
+    * @return       void
+    */
     public function twitterRefreshAction()
     {
-        $this->_twitter->getOAuthToken();
+        try {
+            $this->_twitter->getOAuthToken();
+        } catch (Exception $exc) {
+            $this->view->twitterData 
+                = "<p>Sorry! Twitter API may be down for maintenance.</p>";
+        }
     }
 
+    /**
+    * @function    prepareMessages()
+    * @description This function is used to prepare messages to be shown to 
+    *              the users
+    * @param       array $messageArrays array of messgaes
+    *
+    * @return      void
+    */
     public function prepareMessages($messageArrays)
     {
         $messageString='';
@@ -245,6 +273,13 @@ class IndexController extends Zend_Controller_Action
         return $messageString;
     }
 
+    /**
+    * @function     setGoogleSessionAction()
+    * @description  This function is used to set session when
+    *               a user signs in with Google or Facebook
+    *
+    * @return       void
+    */
     public function setGoogleSessionAction()
     {
         if (isset($_SESSION['firstName'])) {
@@ -293,6 +328,13 @@ class IndexController extends Zend_Controller_Action
         exit;
     }
 
+    /**
+    * @function     fecebookRefreshAction()
+    * @description  This function is used to get facebook feeds from
+    *               the model Facebook
+    *
+    * @return       void
+    */
     public function facebookRefreshAction()
     {
         $url = $this->_settings->getFacebookUrl($_SESSION['email']);
@@ -321,6 +363,12 @@ class IndexController extends Zend_Controller_Action
         exit;
     }
 
+    /**
+    * @function     saveFacebookUrlAction()
+    * @description  This function is used to save facebook feed url to the database
+    *
+    * @return       void
+    */
     public function saveFacebookUrlAction()
     {
         $url = $_POST['facebookUrl'];
@@ -333,6 +381,13 @@ class IndexController extends Zend_Controller_Action
         exit;
     }
 
+    /**
+    * @function     saveThemeAction()
+    * @description  This function is used to save the theme name and extension
+    *               to the database
+    *
+    * @return       void
+    */
     public function saveThemeAction()
     {
         $theme = $_POST['theme'];
@@ -345,6 +400,12 @@ class IndexController extends Zend_Controller_Action
         exit;
     }
 
+    /**
+    * @function     getThemeAction()
+    * @description  This function is used to get theme name and extension to the database
+    *
+    * @return       void
+    */
     public function getThemeAction()
     {
         $theme = $this->_settings->getTheme();
@@ -358,4 +419,3 @@ class IndexController extends Zend_Controller_Action
         exit;
     }
 }
-

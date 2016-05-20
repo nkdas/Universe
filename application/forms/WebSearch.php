@@ -48,7 +48,9 @@ class Application_Form_WebSearch extends Zend_Form
             )
         );
 
-        $this->addElements(array($searchBox, $googleButton, $bingButton, $yahooButton, $wikipediaButton));
+        $this->addElements(
+            array($searchBox, $googleButton, $bingButton, $yahooButton, $wikipediaButton)
+        );
     }
 
 }

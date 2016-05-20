@@ -1,9 +1,9 @@
 <?php
 
 /**
- * @class       Application_Model_DbTable_User
- * @path        application/models/DbTable/User.php
- * @description This class contains functions to interact with the database table users.
+ * @class       Application_Model_DbTable_Settings
+ * @path        application/models/DbTable/Settings.php
+ * @description This class contains functions to interact with the database table settings.
  */
 class Application_Model_DbTable_Settings extends Zend_Db_Table_Abstract
 {
@@ -11,6 +11,13 @@ class Application_Model_DbTable_Settings extends Zend_Db_Table_Abstract
     // Specifies table name
     protected $_name = 'settings';
 
+    /**
+     * @function    addUserData()
+     * @description This function is used to save email of the newly registered user.
+     * @param       string $email email id
+     *
+     * @return      boolean
+     */
     public function addUserData($email)
     {
         try {
@@ -21,12 +28,21 @@ class Application_Model_DbTable_Settings extends Zend_Db_Table_Abstract
         }
     }
 
+    /**
+     * @function    saveFacebookUrl()
+     * @description This function is used to save facebook feed url to the database.
+     * @param       string $url facebook feed url
+     *
+     * @return      boolean
+     */
     public function saveFacebookUrl($url)
     {
         try {
             if (isset($_SESSION['email'])) {
-                $this->update(array('facebookFeedUrl' => $url), 'email="' . $_SESSION['email'] 
-                    . '"');
+                $this->update(
+                    array('facebookFeedUrl' => $url), 
+                    'email="' . $_SESSION['email'] . '"'
+                );
                 return true;
             } else {
                 return false;
@@ -37,6 +53,13 @@ class Application_Model_DbTable_Settings extends Zend_Db_Table_Abstract
         }
     }
 
+    /**
+     * @function    getFacebookUrl()
+     * @description This function is used to fetch facebook feed url from the database.
+     * @param       string $email email id
+     *
+     * @return      boolean
+     */
     public function getFacebookUrl($email)
     {
         try {
@@ -51,12 +74,21 @@ class Application_Model_DbTable_Settings extends Zend_Db_Table_Abstract
         }
     }
 
+    /**
+     * @function    saveTheme()
+     * @description This function is used to save theme name and extension the database.
+     * @param       string $theme theme name and action
+     *
+     * @return      boolean
+     */
     public function saveTheme($theme)
     {
         try {
             if (isset($_SESSION['email'])) {
-                $this->update(array('theme' => $theme), 'email="' . $_SESSION['email']
-                    . '"');
+                $this->update(
+                    array('theme' => $theme), 
+                    'email="' . $_SESSION['email'] . '"'
+                );
                 return true;
             } else {
                 return false;
@@ -67,6 +99,12 @@ class Application_Model_DbTable_Settings extends Zend_Db_Table_Abstract
         }
     }
 
+    /**
+     * @function    getTheme()
+     * @description This function is used to fetch theme name and extension form the database.
+     *
+     * @return      boolean
+     */
     public function getTheme()
     {
         try {

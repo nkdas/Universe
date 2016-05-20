@@ -1,5 +1,4 @@
 <?php
-
 class InputDecorator extends Zend_Form_Decorator_Abstract
 {
     protected $_format = '<div class="form-group">

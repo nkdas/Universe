@@ -148,7 +148,9 @@ class Application_Form_SignUp extends Zend_Form
             )
         );
 
-        $this->addElements(array($firstName, $lastName, $email, $password, $reTypePassword, $submit));
+        $this->addElements(
+            array($firstName, $lastName, $email, $password, $reTypePassword, $submit)
+        );
     }
 
 }
